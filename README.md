@@ -1,1 +1,1 @@
-# calculator_v1
+# smartcalc_v1
