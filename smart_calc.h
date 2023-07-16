@@ -3,9 +3,16 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-enum error_codes { OK, TOO_LONG_STRING, STACK_UNDERFLOW, STACK_OVERFLOW,QUEUE_OVERFLOW };
+enum error_codes {
+  OK,
+  TOO_LONG_STRING,
+  STACK_UNDERFLOW,
+  STACK_OVERFLOW,
+  QUEUE_OVERFLOW
+};
 
 typedef enum {
   NUMBER,
@@ -46,5 +53,10 @@ typedef struct queue_tag {
 } queue_node_t; /* 24 bytes size */
 
 #define DEFAULT_Q_SIZE 21
+
+// FUNCTIONS
+int stack_push(stack_node_t** stack_head, stack_node_t* data);
+int stack_pop(stack_node_t** stack_head, stack_node_t* node);
+int stack_to_queue(stack_node_t** stack_head, queue_node_t** queue_head);
 
 #endif  // SMARTCALC_SRC_H_

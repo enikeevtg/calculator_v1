@@ -1,9 +1,14 @@
+# UTILITIES
 CC = gcc
+LEAKS =# leaks -atExit --
 RM = rm -rf
 
+# FILENAMES
+SRC_DIR = ./src/
+
 tmp:
-	@gcc structures.c
-	@./a.out
+	@gcc structures.c $(SRC_DIR)*.c
+	@$(LEAKS) ./a.out
 	@$(RM) a.out
 
 
