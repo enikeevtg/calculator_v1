@@ -6,18 +6,18 @@
 #include "../smart_calc.h"
 
 /// @brief the data adding to stack new node
-/// @param struct_type STACK or QUEUE structure
+/// @param address STACK or QUEUE structure
 /// @param head head of structure
 /// @param data
 /// @return error code
-int push(int struct_type, node_t** head, node_t* data) {
+int push(int address, node_t** head, node_t* data) {
   int error_code = OK;
   node_t* new_node_ptr = (node_t*)calloc(1, sizeof(node_t));
   if (new_node_ptr == NULL) {
     error_code = DATA_STRUCT_OVERFLOW;
   } else {
-    if (struct_type == STACK) new_node_ptr->next_node_ptr = *head;
-    if (struct_type == QUEUE) (*head)->next_node_ptr = new_node_ptr;
+    if (address == STACK) new_node_ptr->next_node_ptr = *head;
+    if (address == QUEUE) (*head)->next_node_ptr = new_node_ptr;
     node_filling(new_node_ptr, data);
     *head = new_node_ptr;
   }

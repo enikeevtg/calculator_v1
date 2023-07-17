@@ -8,9 +8,10 @@ SRC_DIR = ./src/
 SRC = $(wildcard $(SRC_DIR)*.c)
 
 tmp:
-	@gcc structures.c $(SRC_DIR)*.c
-	@$(LEAKS) ./a.out
-	@$(RM) a.out
+#	gcc structures.c $(SRC_DIR)*.c
+	gcc parsing_test.c $(SRC_DIR)*.c
+	$(LEAKS) ./a.out
+	$(RM) a.out
 
 
 # SERVICES
