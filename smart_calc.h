@@ -13,6 +13,7 @@ enum error_codes {
   MEMORY_ACCESS_ERROR,
   TOO_LONG_STRING,
   UNDEFINED_TOKEN,
+  UNBALANCED_BRACKETS,
   DATA_STRUCT_OVERFLOW,
   DATA_STRUCT_UNDERFLOW,
   STACK_UNDERFLOW,
@@ -29,13 +30,15 @@ enum error_codes {
 // FUNCTIONS
 // data structures processing
 int push(int struct_type, node_t** head, node_t* data);
-int pop(node_t** head, node_t* node);
+int pop(node_t** s_head, node_t* node);
 void node_filling(node_t* src, node_t* dest);
+void node_removing(node_t** head);
+void struct_removing(node_t** head);
 int node_from_queue_to_stack(node_t** q_head, node_t** s_head);
 int node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 
 // calculator
-// int string_processing(const char* str, node_t** s_head, node_t** q_head);
+int string_processing(const char* str, node_t** s_head, node_t** q_head);
 int string_processing_v1(const char* str, char** tokens);
 
 #endif  // SMARTCALC_SMART_CALC_H_

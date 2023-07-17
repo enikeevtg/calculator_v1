@@ -24,9 +24,7 @@ int node_drag_and_drop(int dest_type, node_t** dest_head, node_t** src_head) {
   if (*src_head == NULL) return DATA_STRUCT_UNDERFLOW;
 
   int error_code = push(dest_type, dest_head, *src_head);
-  node_t* tmp_node = *src_head;
-  free(*src_head);
-  *src_head = tmp_node;
+  node_removing(src_head);
 
   return error_code;
 }

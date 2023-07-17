@@ -16,8 +16,6 @@ int string_processing_v1(const char* str, char** tokens) {
   const char numbers[] = "1234567890.";
   char* ptr = (char*)str;
 
-  // printf("tmp_str_arr address: %p\n", tmp_str_arr);
-
   int token_index = 0;
   while (!error_code && *ptr != '\0') {
     if (strchr(operators, *ptr)) {
