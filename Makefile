@@ -5,6 +5,7 @@ RM = rm -rf
 
 # FILENAMES
 SRC_DIR = ./src/
+SRC = $(wildcard $(SRC_DIR)*.c)
 
 tmp:
 	@gcc structures.c $(SRC_DIR)*.c
@@ -14,10 +15,10 @@ tmp:
 
 # SERVICES
 style:
-	clang-format --style=google -n *.h *.c
+	clang-format --style=google -n *.h *.c $(SRC)
 
 gost:
-	clang-format --style=google -i *.h *.c
+	clang-format --style=google -i *.h *.c $(SRC)
 
 clean:
 	$(RM) a.out

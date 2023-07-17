@@ -9,6 +9,8 @@
 enum error_codes {
   OK,
   TOO_LONG_STRING,
+  DATA_STRUCT_OVERFLOW,
+  DATA_STRUCT_UNDERFLOW,
   STACK_UNDERFLOW,
   STACK_OVERFLOW,
   QUEUE_OVERFLOW
@@ -39,24 +41,21 @@ typedef enum {
 
 typedef enum { O1, O2, O3, O4 } token_p;
 
-typedef struct stack_tag {
-  struct stack_tag* prev_node;
+typedef struct node_tag {
+  struct node_tag* next_node_ptr;
   token_t token_type;
   token_p token_priority;
   double token_value;
-} stack_node_t; /* 24 bytes size */
-
-typedef struct queue_tag {
-  struct queue_tag* next_node;
-  token_t token_type;
-  double token_value;
-} queue_node_t; /* 24 bytes size */
+} node_t; /* 24 bytes size */
 
 #define DEFAULT_Q_SIZE 21
+#define STACK 1
+#define QUEUE 2
 
 // FUNCTIONS
-int stack_push(stack_node_t** stack_head, stack_node_t* data);
-int stack_pop(stack_node_t** stack_head, stack_node_t* node);
-int stack_to_queue(stack_node_t** stack_head, queue_node_t** queue_head);
+int push(int struct_type, node_t** head, node_t* data);
+int pop(node_t** head, node_t* node);
+void node_filling(node_t* dest, node_t* src);
+int node_move(int dest_struct_type, node_t** dest_head, node_t** src_head);
 
 #endif  // SMARTCALC_SRC_H_
