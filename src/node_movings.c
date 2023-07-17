@@ -22,7 +22,7 @@ int node_from_queue_to_stack(node_t** q_head, node_t** s_head) {
 /// @return error code
 int node_drag_and_drop(int dest_type, node_t** dest_head, node_t** src_head) {
   if (*src_head == NULL) return DATA_STRUCT_UNDERFLOW;
- 
+
   int error_code = push(dest_type, dest_head, *src_head);
   node_t* tmp_node = *src_head;
   free(*src_head);

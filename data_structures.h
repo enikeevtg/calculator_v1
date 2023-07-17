@@ -1,7 +1,7 @@
 #ifndef SMARTCALC_DATA_STRUCTURES_H_
 #define SMARTCALC_DATA_STRUCTURES_H_
 
-enum data_structure {STACK, QUEUE};
+enum data_structure { STACK, QUEUE };
 
 typedef enum token_type {
   NUMBER,
