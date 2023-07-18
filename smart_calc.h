@@ -21,6 +21,9 @@ enum error_codes {
   QUEUE_OVERFLOW
 };
 
+#define OPERATORS_CHARS const char operators_chars[] = "+-*/()^%";
+#define FUNCTIONS_FIRST_LATTERS const char functions_first_letters[] = "cstal";
+#define NUMBERS_CHARS const char numbers_chars[] = "1234567890.";
 #define FUNCTIONS_NUMBER 9
 #define FUNCTIONS_NAMES_MAX_LENGTH 5
 #define FUNCTIONS_NAMES                                                        \
@@ -29,7 +32,7 @@ enum error_codes {
 
 // FUNCTIONS
 // data structures processing
-int push(int struct_type, node_t** head, node_t* data);
+int push(int address, node_t** head, node_t* data);
 int pop(node_t** s_head, node_t* node);
 void node_filling(node_t* src, node_t* dest);
 void node_removing(node_t** head);
@@ -38,7 +41,7 @@ int node_from_queue_to_stack(node_t** q_head, node_t** s_head);
 int node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 
 // calculator
-int string_processing(const char* str, node_t** s_head, node_t** q_head);
-int string_processing_v1(const char* str, char** tokens);
+int convert_infix_to_postfix(const char* str, node_t** s_head, node_t** q_head);
+int split_string_to_tokens(const char* str, char** tokens);
 
 #endif  // SMARTCALC_SMART_CALC_H_

@@ -9,7 +9,7 @@ int main() {
   node_t queue = {0};
   node_t* q_head = &queue;
 
-  int error_code = string_processing(input_str, &s_head, &q_head);
+  int error_code = convert_infix_to_postfix(input_str, &s_head, &q_head);
 
   if (error_code == OK) {
     int i = 0;

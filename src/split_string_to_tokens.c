@@ -5,27 +5,33 @@
 
 #include "../smart_calc.h"
 
-int operators_to_str(char* dest, char** operator);
-int value_to_str(char* dest, char** number);
-int function_to_str(char* dest, char** function);
+int value_token(char* dest, char** number);
+int operator_token(char* dest, char** operator);
+int function_token(char* dest, char** function);
 
-int string_processing_v1(const char* str, char** tokens) {
+/// @brief string splitting
+/// @param str source string
+/// @param tokens array of token strings
+/// @return error code
+int split_string_to_tokens(const char* str, char** tokens) {
   int error_code = OK;
-  const char operators[] = "+-*/()^%";
-  const char functions_first_letters[] = "cstal";
-  const char numbers[] = "1234567890.";
+  
+  NUMBERS_CHARS;
+  OPERATORS_CHARS;
+  FUNCTIONS_FIRST_LATTERS;
+  
   char* ptr = (char*)str;
 
   int token_index = 0;
   while (!error_code && *ptr != '\0') {
-    if (strchr(operators, *ptr)) {
-      error_code = operators_to_str(tokens[token_index], &ptr);
+    if (strchr(numbers_chars, *ptr)) {
+      error_code = value_token(tokens[token_index], &ptr);
       token_index++;
-    } else if (strchr(numbers, *ptr)) {
-      error_code = value_to_str(tokens[token_index], &ptr);
+    } else if (strchr(operators_chars, *ptr)) {
+      error_code = operator_token(tokens[token_index], &ptr);
       token_index++;
     } else if (strchr(functions_first_letters, *ptr)) {
-      error_code = function_to_str(tokens[token_index], &ptr);
+      error_code = function_token(tokens[token_index], &ptr);
       token_index++;
     } else if (*ptr == ' ') {
       ptr++;
@@ -33,15 +39,10 @@ int string_processing_v1(const char* str, char** tokens) {
       error_code = UNDEFINED_TOKEN;
     }
   }
+  return error_code;
 }
 
-int operators_to_str(char* dest, char** operator) {
-  strncat(dest, *operator, 1);
-  (*operator)++;
-  return OK;
-}
-
-int value_to_str(char* dest, char** number) {
+int value_token(char* dest, char** number) {
   const char numbers[] = "1234567890.";
   size_t number_length = strspn(*number, numbers);
   strncat(dest, *number, number_length);
@@ -49,7 +50,13 @@ int value_to_str(char* dest, char** number) {
   return OK;
 }
 
-int function_to_str(char* dest, char** function) {
+int operator_token(char* dest, char** operator) {
+  strncat(dest, *operator, 1);
+  (*operator)++;
+  return OK;
+}
+
+int function_token(char* dest, char** function) {
   int error_code = OK;
   FUNCTIONS_NAMES;
   char* bracket = strpbrk(*function, "(");

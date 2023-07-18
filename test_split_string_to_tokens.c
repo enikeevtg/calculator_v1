@@ -4,8 +4,8 @@ int tokens_array_alloc(char*** tokens_array, size_t tokens_array_size,
                        int tokens_number, int token_max_length);
 
 int main() {
-  char input_str[255] = "(-123.123456 + 321) / 23 * 1% sin(18) * ln(11)";
-  printf("%s\n", input_str);
+  char input_str[255] = "(-123.123456 + 321) / 23 * 1% sin(-18) * ln(11)";
+  printf("source string: \"%s\"\n", input_str);
 
   char** tokens_array;
   int tokens_number = 32;
@@ -16,12 +16,13 @@ int main() {
                                       tokens_number, token_max_length);
 
   if (error_code == OK)
-    error_code = string_processing_v1(input_str, tokens_array);
+    error_code = split_string_to_tokens(input_str, tokens_array);
 
   if (error_code == OK) {
+    printf("tokens:\n");
     int i = 0;
     while (tokens_array[i][0] != '\0') {
-      printf("\"%s\"\t", tokens_array[i]);
+      printf("\t#%2d:  \"%s\"\n", i + 1, tokens_array[i]);
       i++;
     }
     printf("\n");
