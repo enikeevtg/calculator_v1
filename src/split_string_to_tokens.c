@@ -15,11 +15,11 @@ int function_token(char* dest, char** function);
 /// @return error code
 int split_string_to_tokens(const char* str, char** tokens) {
   int error_code = OK;
-  
+
   NUMBERS_CHARS;
   OPERATORS_CHARS;
   FUNCTIONS_FIRST_LATTERS;
-  
+
   char* ptr = (char*)str;
 
   int token_index = 0;
@@ -69,7 +69,7 @@ int function_token(char* dest, char** function) {
     strcat(dest, functions_names[i]);
     strcat(dest, "(");
     *bracket = '(';
-    *function += strlen(functions_names[i]) + 1;
+    *function = bracket + 1;
   }
   return error_code;
 }

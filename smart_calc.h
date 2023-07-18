@@ -8,22 +8,32 @@
 
 #include "data_structures.h"
 
+#ifdef DEBUG
+#define log_info(M, ...) \
+  fprintf(stderr, "[INFO] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#else
+#define log_info(M, ...)
+#endif
+
 enum error_codes {
   OK,
-  MEMORY_ACCESS_ERROR,
-  TOO_LONG_STRING,
   UNDEFINED_TOKEN,
-  UNBALANCED_BRACKETS,
-  DATA_STRUCT_OVERFLOW,
   DATA_STRUCT_UNDERFLOW,
+  DATA_STRUCT_OVERFLOW,
+  TOO_LONG_STRING,
+  MEMORY_ACCESS_ERROR,
+  UNBALANCED_BRACKETS,
+  EMPTY_BRACKETS,
+  OPERATORS_INPUT_ERROR,
   STACK_UNDERFLOW,
   STACK_OVERFLOW,
   QUEUE_OVERFLOW
 };
 
-#define OPERATORS_CHARS const char operators_chars[] = "+-*/()^%";
-#define FUNCTIONS_FIRST_LATTERS const char functions_first_letters[] = "cstal";
-#define NUMBERS_CHARS const char numbers_chars[] = "1234567890.";
+#define TOKEN_CHARS const char token_chars[] = "1234567890.+-*/^%()cstal"
+#define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
+#define FUNCTIONS_FIRST_LATTERS const char functions_first_letters[] = "cstal"
+#define NUMBERS_CHARS const char numbers_chars[] = "1234567890."
 #define FUNCTIONS_NUMBER 9
 #define FUNCTIONS_NAMES_MAX_LENGTH 5
 #define FUNCTIONS_NAMES                                                        \

@@ -8,7 +8,11 @@ int main() {
 
   node_t* stack_head = NULL;
 
-  node_t node1 = {next_node_ptr : NULL, token_type : LOG, token_priority : O4};
+  node_t node1 = {
+    next_node_ptr : NULL,
+    token_type : LOG,
+    token_priority : PRIOR_4
+  };
 
   node_t node2 = {
     next_node_ptr : &node1,

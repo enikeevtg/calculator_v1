@@ -6,15 +6,15 @@ enum data_structure { STACK, QUEUE };
 typedef enum token_type {
   NUMBER,
   VAR,
-  LEFT_BRACKET,
   PLUS,
   MINUS,
   MULT,
   DIV,
-  POW,
   MOD,
+  POW,
   U_PLUS,
   U_MINUS,
+  OPEN_BRACKET,
   COS,
   SIN,
   TAN,
@@ -26,7 +26,7 @@ typedef enum token_type {
   LOG
 } token_t;
 
-typedef enum token_priority { O1, O2, O3, O4 } token_p;
+typedef enum token_priority { PRIOR_1, PRIOR_2, PRIOR_3, PRIOR_4 } token_p;
 
 typedef struct node_tag {
   struct node_tag* next_node_ptr;
