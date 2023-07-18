@@ -21,18 +21,18 @@ enum error_codes {
   DATA_STRUCT_UNDERFLOW,
   DATA_STRUCT_OVERFLOW,
   TOO_LONG_STRING,
-  MEMORY_ACCESS_ERROR,
+  MEMORY_ACCESS_ERROR,  // ! test_split_string_to_tokens.c
   UNBALANCED_BRACKETS,
   EMPTY_BRACKETS,
   OPERATORS_INPUT_ERROR,
-  STACK_UNDERFLOW,
-  STACK_OVERFLOW,
-  QUEUE_OVERFLOW
+  STACK_UNDERFLOW,  // ! push.c
+  STACK_OVERFLOW,   // ! push.c
+  QUEUE_OVERFLOW    // ! push.c
 };
 
 #define TOKEN_CHARS const char token_chars[] = "1234567890.+-*/^%()cstal"
 #define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
-#define FUNCTIONS_FIRST_LATTERS const char functions_first_letters[] = "cstal"
+#define FUNCTIONS_FIRST_LETTERS const char functions_first_letters[] = "cstal"
 #define NUMBERS_CHARS const char numbers_chars[] = "1234567890."
 #define FUNCTIONS_NUMBER 9
 #define FUNCTIONS_NAMES_MAX_LENGTH 5

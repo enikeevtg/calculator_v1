@@ -18,7 +18,7 @@ int split_string_to_tokens(const char* str, char** tokens) {
 
   NUMBERS_CHARS;
   OPERATORS_CHARS;
-  FUNCTIONS_FIRST_LATTERS;
+  FUNCTIONS_FIRST_LETTERS;
 
   char* ptr = (char*)str;
 

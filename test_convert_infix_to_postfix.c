@@ -1,7 +1,8 @@
 #include "smart_calc.h"
 
 int main() {
-  char input_str[255] = "-(-123.123456 + 321) / 23 * 1% sin(18) * ln(11)";
+  char input_str[255] =
+      "-(-123.123456 + 321)+- 3^-1 / 23 * 1% sin(18) * ln(11)";
   printf("%s\n", input_str);
 
   node_t stack = {0};
