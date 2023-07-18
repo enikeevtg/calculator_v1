@@ -24,7 +24,7 @@ enum error_codes {
   MEMORY_ACCESS_ERROR,  // ! test_split_string_to_tokens.c
   UNBALANCED_BRACKETS,
   EMPTY_BRACKETS,
-  OPERATORS_INPUT_ERROR,
+  INCORRECT_INPUT,
   STACK_UNDERFLOW,  // ! push.c
   STACK_OVERFLOW,   // ! push.c
   QUEUE_OVERFLOW    // ! push.c

@@ -59,7 +59,7 @@ int right_bracket_processing(int prev_address, node_t** s_head,
                              node_t** q_head) {
   if (prev_address == STACK && (*s_head)->token_type == OPEN_BRACKET)
     return EMPTY_BRACKETS;
-  if (prev_address == STACK) return OPERATORS_INPUT_ERROR;
+  if (prev_address == STACK) return INCORRECT_INPUT;
 
   int error_code = OK;
   while (*s_head && (*s_head)->token_type != OPEN_BRACKET)
@@ -120,42 +120,36 @@ int operator_packer(int prev_address, node_t** s_head, char** str,
   int error_code = OK;
 
   char symb = **str;
-  if (symb == '+') {
-    if (prev_address == QUEUE) {
-      operator_package_filling(PLUS, PRIOR_2, &container_p);
-    } else if (prev_address == STACK &&
-               ((*s_head)->next_node_ptr == NULL ||
-                (*s_head)->token_type == OPEN_BRACKET ||
-                (*s_head)->token_type == POW)) {  // because 1^-2 is correct
-      operator_package_filling(U_PLUS, PRIOR_4, &container_p);
-    } else {
-      error_code = OPERATORS_INPUT_ERROR;
-    }
-  } else if (symb == '-') {
-    if (prev_address == QUEUE) {
-      operator_package_filling(MINUS, PRIOR_2, &container_p);
-    } else if (prev_address == STACK &&
-               ((*s_head)->next_node_ptr == NULL ||
-                (*s_head)->token_type == OPEN_BRACKET ||
-                (*s_head)->token_type == POW)) {  // because 1^-2 is correct
-      container_p->token_type = U_MINUS;
-      operator_package_filling(U_MINUS, PRIOR_4, &container_p);
-    } else {
-      error_code = OPERATORS_INPUT_ERROR;
-    }
-  } else if (symb == '*') {
+  if (symb == '+' && prev_address == QUEUE) {
+    operator_package_filling(PLUS, PRIOR_2, &container_p);
+  } else if (symb == '-' && prev_address == QUEUE) {
+    operator_package_filling(MINUS, PRIOR_2, &container_p);
+  } else if (symb == '*' && prev_address == QUEUE) {
     operator_package_filling(MULT, PRIOR_3, &container_p);
-  } else if (symb == '/') {
+  } else if (symb == '/' && prev_address == QUEUE) {
     operator_package_filling(DIV, PRIOR_3, &container_p);
-  } else if (symb == '%') {
+  } else if (symb == '%' && prev_address == QUEUE) {
     operator_package_filling(MOD, PRIOR_3, &container_p);
-  } else if (symb == '^') {
+  } else if (symb == '^' && prev_address == QUEUE) {
     operator_package_filling(POW, PRIOR_4, &container_p);
+  } else if (symb == '+' && prev_address == STACK &&
+             ((*s_head)->next_node_ptr == NULL ||
+              (*s_head)->token_type == OPEN_BRACKET ||
+              (*s_head)->token_type == POW)) {  // because 1^-2 is correct
+    operator_package_filling(U_PLUS, PRIOR_4, &container_p);
+  } else if (symb == '-' && prev_address == STACK &&
+             ((*s_head)->next_node_ptr == NULL ||
+              (*s_head)->token_type == OPEN_BRACKET ||
+              (*s_head)->token_type == POW)) {  // because 1^-2 is correct
+    operator_package_filling(U_MINUS, PRIOR_4, &container_p);
   } else if (symb == '(') {
     operator_package_filling(OPEN_BRACKET, PRIOR_1, &container_p);
+  } else {
+    error_code = INCORRECT_INPUT;
   }
   *str += 1;
-  log_info("OPERATOR: operator_code is %d \'%c\'", container_p->token_type, symb);
+  log_info("OPERATOR: operator_code is %d \'%c\'", container_p->token_type,
+           symb);
 
   return error_code;
 }
