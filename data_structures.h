@@ -16,14 +16,14 @@ typedef enum token_type {
   U_PLUS,        // '+' : 9
   U_MINUS,       // '-' : 10
   OPEN_BRACKET,  // '(' : 11
-  NUMBER,        // double number : 12
-  VAR,           // variable 'x' : 13
-  PLUS,          // '+' : 14
-  MINUS,         // '-' : 15
-  MULT,          // '*' : 16
-  DIV,           // '/' : 17
-  MOD,           // '%' : 18
-  POW,           // '^' : 19
+  PLUS,          // '+' : 12
+  MINUS,         // '-' : 13
+  MULT,          // '*' : 14
+  DIV,           // '/' : 15
+  MOD,           // '%' : 16
+  POW,           // '^' : 17
+  NUMBER,        // double number : 18
+  VAR            // variable 'x' : 19
 } token_t;
 
 typedef enum token_priority {

@@ -54,7 +54,7 @@ int node_from_queue_to_stack(node_t** q_head, node_t** s_head);
 int node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 
 // calculator
-int convert_infix_to_postfix(const char* str, node_t** s_head, node_t** q_head);
+int convert_infix_to_RPN(const char* str, node_t* q_head);
 int split_string_to_tokens(const char* str, char** tokens);
 
 #endif  // SMARTCALC_SMART_CALC_H_
