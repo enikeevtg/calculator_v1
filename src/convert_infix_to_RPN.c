@@ -38,12 +38,10 @@ int convert_infix_to_RPN(const char* str, node_t* q_head) {
 
   while (!error && !(*current_str == '\0' && s_head == NULL)) {
     if (*current_str == ')') {
-      // log_info(" OPERATOR: \')\'");
       error = close_bracket_processing(address, &s_head, &q_head);
       current_str++;
     } else if (*current_str == '\0') {
       while (s_head != NULL) node_from_stack_to_queue(&s_head, &q_head);
-      // log_info(" END of string detected");
       s_head = NULL;
     } else if (*current_str == ' ') {
       current_str++;
@@ -51,17 +49,15 @@ int convert_infix_to_RPN(const char* str, node_t* q_head) {
       error = container_packing(address, &s_head, &current_str, &container);
       if (error == OK) {
         error = container_sending(&address, &s_head, &q_head, &container);
-        // printf("\n");
       }
-      // if (error) log_info("ERROR %d", error);
     } else {
       error = UNDEFINED_TOKEN;
-      // log_info("UNDEFINED_TOKEN detected: %c", *current_str);
     }
   }
-
-  if (error) struct_removing(&s_head);
-
+  if (error) {
+    log_info("ERROR %d", error);
+    struct_removing(&s_head);
+  }
   return error;
 }
 
@@ -123,45 +119,36 @@ int operator_packer(int prev_address, node_t** s_head, char** str,
   // (*s_head)->token_type);
   char symb = **str;
   if (symb == '+' && prev_address == QUEUE) {
-    container_p->token_type = PLUS;
-    container_p->token_priority = PRIOR_2;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, PLUS, PRIOR_2, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '-' && prev_address == QUEUE) {
-    container_p->token_type = MINUS;
-    container_p->token_priority = PRIOR_2;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, MINUS, PRIOR_2, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '*' && prev_address == QUEUE) {
-    container_p->token_type = MULT;
-    container_p->token_priority = PRIOR_3;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, MULT, PRIOR_3, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '/' && prev_address == QUEUE) {
-    container_p->token_type = DIV;
-    container_p->token_priority = PRIOR_3;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, DIV, PRIOR_3, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '%' && prev_address == QUEUE) {
-    container_p->token_type = MOD;
-    container_p->token_priority = PRIOR_3;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, MOD, PRIOR_3, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '^' && prev_address == QUEUE) {
-    container_p->token_type = POW;
-    container_p->token_priority = PRIOR_4;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, POW, PRIOR_4, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '+' && prev_address == STACK &&
              (*s_head == NULL || (*s_head)->token_type == OPEN_BRACKET ||
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
-    container_p->token_type = U_PLUS;
-    container_p->token_priority = PRIOR_5;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, U_PLUS, PRIOR_5, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '-' && prev_address == STACK &&
              (*s_head == NULL || (*s_head)->token_type == OPEN_BRACKET ||
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
-    container_p->token_type = U_MINUS;
-    container_p->token_priority = PRIOR_5;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, U_MINUS, PRIOR_5, 0};
+    node_filling(&tmp_node, container_p);
   } else if (symb == '(') {
-    container_p->token_type = OPEN_BRACKET;
-    container_p->token_priority = PRIOR_1;
-    container_p->token_value = 0;
+    node_t tmp_node = {NULL, OPEN_BRACKET, PRIOR_1, 0};
+    node_filling(&tmp_node, container_p);
   } else {
     error = INCORRECT_INPUT;
   }
