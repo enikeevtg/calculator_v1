@@ -17,7 +17,8 @@ int push(int address, node_t** head, node_t* data) {
     error = DATA_STRUCT_OVERFLOW;
   } else {
     if (address == STACK) new_node_ptr->next_node_ptr = *head;
-    if (address == QUEUE) (*head)->next_node_ptr = new_node_ptr;
+    if (address == QUEUE && *head != NULL)
+      (*head)->next_node_ptr = new_node_ptr;
     node_filling(data, new_node_ptr);
     *head = new_node_ptr;
   }
