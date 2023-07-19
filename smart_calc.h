@@ -38,7 +38,10 @@ enum error_codes {
 #define FUNCTIONS_NAMES_MAX_LENGTH 5
 #define FUNCTIONS_NAMES                                                        \
   const char functions_names[FUNCTIONS_NUMBER][FUNCTIONS_NAMES_MAX_LENGTH] = { \
-      "cos", "sin", "tan", "acos", "asin", "atan", "sqrt", "ln", "log"}
+      "cos",  "sin",  "tan", "acos", "asin",                                   \
+      "atan", "sqrt", "ln",  "log"}  // sequence is the same that in
+                                     // "typedef enum token_type {...}
+                                     // token_t"
 
 // FUNCTIONS
 // data structures processing

@@ -4,29 +4,35 @@
 enum data_structure { STACK, QUEUE };
 
 typedef enum token_type {
-  NUMBER,        // double number : 0
-  VAR,           // variable 'x' : 1
-  PLUS,          // '+' : 2
-  MINUS,         // '-' : 3
-  MULT,          // '*' : 4
-  DIV,           // '/' : 5
-  MOD,           // '%' : 6
-  POW,           // '^' : 7
-  U_PLUS,        // '+' : 8
-  U_MINUS,       // '-' : 9
-  OPEN_BRACKET,  // '(' : 10
-  COS,           // 'cos' : 11
-  SIN,           // 'sin' : 12
-  TAN,           // 'tan' : 13
-  ACOS,          // 'acos' : 14
-  ASIN,          // 'asin' : 15
-  ATAN,          // 'atan' : 16
-  SQRT,          // 'sqrt' : 17
-  LN,            // 'ln' : 18
-  LOG            // 'log' : 19
+  COS,           // 'cos' : 0
+  SIN,           // 'sin' : 1
+  TAN,           // 'tan' : 2
+  ACOS,          // 'acos' : 3
+  ASIN,          // 'asin' : 4
+  ATAN,          // 'atan' : 5
+  SQRT,          // 'sqrt' : 6
+  LN,            // 'ln' : 7
+  LOG,           // 'log' : 8
+  U_PLUS,        // '+' : 9
+  U_MINUS,       // '-' : 10
+  OPEN_BRACKET,  // '(' : 11
+  NUMBER,        // double number : 12
+  VAR,           // variable 'x' : 13
+  PLUS,          // '+' : 14
+  MINUS,         // '-' : 15
+  MULT,          // '*' : 16
+  DIV,           // '/' : 17
+  MOD,           // '%' : 18
+  POW,           // '^' : 19
 } token_t;
 
-typedef enum token_priority { PRIOR_1, PRIOR_2, PRIOR_3, PRIOR_4 } token_p;
+typedef enum token_priority {
+  PRIOR_1,
+  PRIOR_2,
+  PRIOR_3,
+  PRIOR_4,
+  PRIOR_5
+} token_p;
 
 typedef struct node_tag {
   struct node_tag* next_node_ptr;

@@ -4,7 +4,7 @@ int tokens_array_alloc(char*** tokens_array, size_t tokens_array_size,
                        int tokens_number, int token_max_length);
 
 int main() {
-  char input_str[255] = "(-123.123456 + 321) / 23 * 1% sin(-18) * ln(11)";
+  char input_str[255] = "(-123.123456 + 321) / 23 * 1% sin18 * ln(11)";
   printf("source string: \"%s\"\n", input_str);
 
   char** tokens_array;

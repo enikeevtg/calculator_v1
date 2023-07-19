@@ -13,9 +13,7 @@ int container_packing(int prev_address, node_t** s_head, char** str,
 int value_packer(char** str, node_t* container_p);
 int operator_packer(int prev_address, node_t** s_head, char** str,
                     node_t* container_p);
-void operator_package_filling(token_t type, token_p priority,
-                              node_t** container_pp);
-// int function_packer(char* dest, char** function);
+int function_packer(char** str, node_t* container_p);
 
 /// @brief
 /// @param str
@@ -107,10 +105,9 @@ int value_packer(char** str, node_t* container_p) {
   sscanf(*str, "%lf", &(container_p->token_value));
 
   NUMBERS_CHARS;
-  size_t number_length = strspn(*str, numbers_chars);
-  *str += number_length;
+  *str += strspn(*str, numbers_chars);
 
-  log_info("NUMBER: value = %lf", number_length, container_p->token_value);
+  log_info("NUMBER: value = %lf", container_p->token_value);
 
   return OK;
 }
@@ -121,29 +118,36 @@ int operator_packer(int prev_address, node_t** s_head, char** str,
 
   char symb = **str;
   if (symb == '+' && prev_address == QUEUE) {
-    operator_package_filling(PLUS, PRIOR_2, &container_p);
+    container_p->token_type = PLUS;
+    container_p->token_priority = PRIOR_2;
   } else if (symb == '-' && prev_address == QUEUE) {
-    operator_package_filling(MINUS, PRIOR_2, &container_p);
+    container_p->token_type = MINUS;
+    container_p->token_priority = PRIOR_2;
   } else if (symb == '*' && prev_address == QUEUE) {
-    operator_package_filling(MULT, PRIOR_3, &container_p);
+    container_p->token_type = MULT;
+    container_p->token_priority = PRIOR_3;
   } else if (symb == '/' && prev_address == QUEUE) {
-    operator_package_filling(DIV, PRIOR_3, &container_p);
+    container_p->token_type = DIV;
+    container_p->token_priority = PRIOR_3;
   } else if (symb == '%' && prev_address == QUEUE) {
-    operator_package_filling(MOD, PRIOR_3, &container_p);
+    container_p->token_type = MOD;
+    container_p->token_priority = PRIOR_3;
   } else if (symb == '^' && prev_address == QUEUE) {
-    operator_package_filling(POW, PRIOR_4, &container_p);
+    container_p->token_type = POW;
+    container_p->token_priority = PRIOR_4;
   } else if (symb == '+' && prev_address == STACK &&
-             ((*s_head)->next_node_ptr == NULL ||
-              (*s_head)->token_type == OPEN_BRACKET ||
+             (*s_head == NULL || (*s_head)->token_type == OPEN_BRACKET ||
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
-    operator_package_filling(U_PLUS, PRIOR_4, &container_p);
+    container_p->token_type = U_PLUS;
+    container_p->token_priority = PRIOR_5;
   } else if (symb == '-' && prev_address == STACK &&
-             ((*s_head)->next_node_ptr == NULL ||
-              (*s_head)->token_type == OPEN_BRACKET ||
+             (*s_head == NULL || (*s_head)->token_type == OPEN_BRACKET ||
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
-    operator_package_filling(U_MINUS, PRIOR_4, &container_p);
+    container_p->token_type = U_MINUS;
+    container_p->token_priority = PRIOR_5;
   } else if (symb == '(') {
-    operator_package_filling(OPEN_BRACKET, PRIOR_1, &container_p);
+    container_p->token_type = OPEN_BRACKET;
+    container_p->token_priority = PRIOR_1;
   } else {
     error_code = INCORRECT_INPUT;
   }
@@ -154,8 +158,23 @@ int operator_packer(int prev_address, node_t** s_head, char** str,
   return error_code;
 }
 
-void operator_package_filling(token_t type, token_p priority,
-                              node_t** container_pp) {
-  (*container_pp)->token_type = type;
-  (*container_pp)->token_priority = priority;
+int function_packer(char** str, node_t* container_p) {
+  int error_code = OK;
+
+  FUNCTIONS_NAMES;
+  char* char_after_function_ptr = strpbrk(*str, "(1234567890x");
+  char char_after_function = *char_after_function_ptr;
+  *char_after_function_ptr = '\0';
+
+  int i = 0;
+  while (i < FUNCTIONS_NUMBER && strcmp(*str, functions_names[i])) i++;
+  if (i == FUNCTIONS_NUMBER) {
+    error_code = UNDEFINED_TOKEN;
+  } else {
+    container_p->token_type = i;
+    container_p->token_priority = PRIOR_5;
+    *char_after_function_ptr = char_after_function;
+    *str = char_after_function_ptr;
+  }
+  return error_code;
 }

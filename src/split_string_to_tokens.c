@@ -59,17 +59,17 @@ int operator_token(char* dest, char** operator) {
 int function_token(char* dest, char** function) {
   int error_code = OK;
   FUNCTIONS_NAMES;
-  char* bracket = strpbrk(*function, "(");
-  *bracket = '\0';
+  char* char_after_function_ptr = strpbrk(*function, "(1234567890.");
+  char char_after_function = *char_after_function_ptr;
+  *char_after_function_ptr = '\0';
   int i = 0;
   while (i < FUNCTIONS_NUMBER && strcmp(*function, functions_names[i])) i++;
   if (i == FUNCTIONS_NUMBER) {
     error_code = UNDEFINED_TOKEN;
   } else {
     strcat(dest, functions_names[i]);
-    strcat(dest, "(");
-    *bracket = '(';
-    *function = bracket + 1;
+    *char_after_function_ptr = char_after_function;
+    *function = char_after_function_ptr;
   }
   return error_code;
 }
