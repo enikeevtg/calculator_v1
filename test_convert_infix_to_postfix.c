@@ -6,7 +6,7 @@ int main() {
   printf("%s\n", input_str);
 
   node_t stack = {0};
-  node_t* s_head = &stack;
+  node_t* s_head = NULL;
   node_t queue = {0};
   node_t* q_root = &queue;
   node_t* q_head = q_root;
