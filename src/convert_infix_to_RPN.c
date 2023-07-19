@@ -9,13 +9,13 @@ int close_bracket_processing(int prev_address, node_t** s_head,
                              node_t** q_head_ptr);
 
 int container_packing(int prev_address, node_t** s_head, char** str,
-                      node_t* container_p);
-int value_packer(char** str, node_t* container_p);
+                      node_t* container_ptr);
+int value_packer(char** str, node_t* container_ptr);
 int operator_packer(int prev_address, node_t** s_head, char** str,
-                    node_t* container_p);
-int function_packer(char** str, node_t* container_p);
+                    node_t* container_ptr);
+int function_packer(char** str, node_t* container_ptr);
 int container_sending(int* address, node_t** s_head, node_t** q_head_ptr,
-                      node_t* container_p);
+                      node_t* container_ptr);
 
 /// @brief converting from infix notation to reverse Polish notation
 /// @param str
@@ -32,11 +32,6 @@ int convert_infix_to_RPN(const char* str, node_t** q_head_ptr) {
   node_t* q_root = NULL;
   int address = STACK;
   node_t container = {0};
-
-  // printf("\n");
-  // log_info("s_head %p", s_head);
-  // log_info("q_head_ptr %p\n", *q_head_ptr);
-
   TOKEN_CHARS;
 
   while (!error && !(*current_str == '\0' && s_head == NULL)) {
@@ -88,7 +83,7 @@ int close_bracket_processing(int prev_address, node_t** s_head,
 }
 
 int container_packing(int prev_address, node_t** s_head, char** str,
-                      node_t* container_p) {
+                      node_t* container_ptr) {
   int error = OK;
 
   NUMBERS_CHARS;
@@ -96,21 +91,21 @@ int container_packing(int prev_address, node_t** s_head, char** str,
   char token_symbol = **str;
 
   if (strchr(numbers_chars, token_symbol)) {
-    error = value_packer(str, container_p);
+    error = value_packer(str, container_ptr);
   } else if (strchr(operators_chars, token_symbol)) {
-    error = operator_packer(prev_address, s_head, str, container_p);
+    error = operator_packer(prev_address, s_head, str, container_ptr);
   } else {  // functions case
-    error = function_packer(str, container_p);
+    error = function_packer(str, container_ptr);
   }
   return error;
 }
 
-int value_packer(char** str, node_t* container_p) {
+int value_packer(char** str, node_t* container_ptr) {
   int error = OK;
 
-  container_p->token_type = NUMBER;
-  sscanf(*str, "%lf", &(container_p->token_value));
-  // log_info("NUMBER:   value = %lf", container_p->token_value);
+  container_ptr->token_type = NUMBER;
+  sscanf(*str, "%lf", &(container_ptr->token_value));
+  // log_info("NUMBER:   value = %lf", container_ptr->token_value);
 
   NUMBERS_CHARS;
   *str += strspn(*str, numbers_chars);
@@ -118,52 +113,52 @@ int value_packer(char** str, node_t* container_p) {
 }
 
 int operator_packer(int prev_address, node_t** s_head, char** str,
-                    node_t* container_p) {
+                    node_t* container_ptr) {
   int error = OK;
   // if (*s_head) log_info("token_type on stack head is %d",
   // (*s_head)->token_type);
   char symb = **str;
   if (symb == '+' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, PLUS, PRIOR_2, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '-' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, MINUS, PRIOR_2, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '*' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, MULT, PRIOR_3, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '/' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, DIV, PRIOR_3, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '%' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, MOD, PRIOR_3, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '^' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, POW, PRIOR_4, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '+' && prev_address == STACK &&
              (*s_head == NULL || (*s_head)->token_type == OPEN_BRACKET ||
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
     node_t tmp_node = {NULL, U_PLUS, PRIOR_5, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '-' && prev_address == STACK &&
              (*s_head == NULL || (*s_head)->token_type == OPEN_BRACKET ||
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
     node_t tmp_node = {NULL, U_MINUS, PRIOR_5, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else if (symb == '(') {
     node_t tmp_node = {NULL, OPEN_BRACKET, PRIOR_1, 0};
-    node_filling(&tmp_node, container_p);
+    node_filling(&tmp_node, container_ptr);
   } else {
     error = INCORRECT_INPUT;
   }
   *str += 1;
-  // log_info("OPERATOR: operator_id is %d \'%c\'", container_p->token_type,
+  // log_info("OPERATOR: operator_id is %d \'%c\'", container_ptr->token_type,
   // symb);
   return error;
 }
 
-int function_packer(char** str, node_t* container_p) {
+int function_packer(char** str, node_t* container_ptr) {
   int error = OK;
 
   FUNCTIONS_NAMES;
@@ -178,8 +173,8 @@ int function_packer(char** str, node_t* container_p) {
     error = UNDEFINED_TOKEN;
   } else {
     // log_info("FUNCTION: function_id is %d \'%s\'", func_id, *str);
-    container_p->token_type = func_id;
-    container_p->token_priority = PRIOR_5;
+    container_ptr->token_type = func_id;
+    container_ptr->token_priority = PRIOR_5;
     *char_after_function_ptr = char_after_function;
     *str = char_after_function_ptr;
   }
@@ -187,21 +182,21 @@ int function_packer(char** str, node_t* container_p) {
 }
 
 int container_sending(int* address, node_t** s_head, node_t** q_head_ptr,
-                      node_t* container_p) {
+                      node_t* container_ptr) {
   int error = OK;
   // log_info("PREV_ADDRESS is %d", *address);
   *address = STACK;
-  if (container_p->token_type < PLUS) {  // functions and '('
-    error = push(*address, s_head, container_p);
-  } else if (container_p->token_type < NUMBER) {  // operators
+  if (container_ptr->token_type < PLUS) {  // functions and '('
+    error = push(*address, s_head, container_ptr);
+  } else if (container_ptr->token_type < NUMBER) {  // operators
     while (!error && *s_head != NULL &&
-           container_p->token_priority <= (*s_head)->token_priority) {
+           container_ptr->token_priority <= (*s_head)->token_priority) {
       error = node_from_stack_to_queue(s_head, q_head_ptr);
     }
-    if (!error) error = push(*address, s_head, container_p);
+    if (!error) error = push(*address, s_head, container_ptr);
   } else {
     *address = QUEUE;
-    error = push(*address, q_head_ptr, container_p);
+    error = push(*address, q_head_ptr, container_ptr);
   }
   // log_info("ADDRESS is %d", *address);
   // log_info("s_head %p", *s_head);
