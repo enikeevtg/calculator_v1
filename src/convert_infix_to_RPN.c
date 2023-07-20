@@ -35,12 +35,11 @@ int convert_infix_to_RPN(const char* str, node_t** q_head_ptr) {
   TOKEN_CHARS;
 
   while (!error && !(*current_str == '\0' && s_head == NULL)) {
-    if (*current_str == ')') {
+    if (*current_str == ')') {  //                       -> container_sending()!
       error = close_bracket_processing(address, &s_head, q_head_ptr);
       current_str++;
-    } else if (*current_str == '\0') {
+    } else if (*current_str == '\0') {  //               -> container_sending()!
       while (s_head != NULL) node_from_stack_to_queue(&s_head, q_head_ptr);
-      s_head = NULL;
     } else if (*current_str == ' ') {
       current_str++;
     } else if (strchr(token_chars, *current_str)) {

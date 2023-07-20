@@ -32,6 +32,25 @@ enum error_codes {
   QUEUE_OVERFLOW    // ! push.c
 };
 
+#define ERRORS_MESSAGES_NUMBERS 14
+#define ERRORS_MESSAGE_MAX_SIZE 22
+#define ERRORS_MESSAGES                                                 \
+  char errors_msg[ERRORS_MESSAGES_NUMBERS][ERRORS_MESSAGE_MAX_SIZE] = { \
+      "OK",                                                             \
+      "UNDEFINED_TOKEN",                                                \
+      "DATA_STRUCT_UNDERFLOW",                                          \
+      "DATA_STRUCT_OVERFLOW",                                           \
+      "TOO_LONG_STRING",                                                \
+      "EMPTY_EXPRESSION",                                               \
+      "MEMORY_ACCESS_ERROR",                                            \
+      "UNBALANCED_BRACKETS",                                            \
+      "EMPTY_BRACKETS",                                                 \
+      "INCORRECT_INPUT",                                                \
+      "EMPTY_QUEUE",                                                    \
+      "STACK_UNDERFLOW",                                                \
+      "STACK_OVERFLOW",                                                 \
+      "QUEUE_OVERFLOW"}
+
 #define TOKEN_CHARS const char token_chars[] = "1234567890.+-*/^%()cstal"
 #define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
 #define FUNCTIONS_FIRST_LETTERS const char functions_first_letters[] = "cstal"

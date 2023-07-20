@@ -1,7 +1,7 @@
 #include "smart_calc.h"
 
 int main() {
-  char input_str[255] = "ln()";
+  char input_str[255] = "cos(acos0.5";
   printf("%s\n", input_str);
 
   node_t* q_root = NULL;
