@@ -51,9 +51,9 @@ enum error_codes {
       "STACK_OVERFLOW",                                                 \
       "QUEUE_OVERFLOW"}
 
-#define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
+// #define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
 #define FUNCTIONS_FIRST_LETTERS const char functions_first_letters[] = "cstal"
-#define NUMBERS_CHARS const char numbers_chars[] = "1234567890."
+// #define NUMBERS_CHARS const char numbers_chars[] = "1234567890."
 #define FUNCTIONS_NUMBER 9
 #define FUNCTIONS_NAMES_MAX_LENGTH 5
 #define FUNCTIONS_NAMES                                                        \

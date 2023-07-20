@@ -16,8 +16,8 @@ int function_token(char* dest, char** function);
 int split_string_to_tokens(const char* str, char** tokens) {
   int error_code = OK;
 
-  NUMBERS_CHARS;
-  OPERATORS_CHARS;
+  const char numbers_chars[] = "1234567890.";
+  const char operators_chars[] = "+-*/^%()";
   FUNCTIONS_FIRST_LETTERS;
 
   char* ptr = (char*)str;

@@ -1,7 +1,7 @@
 #include "smart_calc.h"
 
 int main() {
-  char input_str[255] = "5 5";
+  char input_str[255] = "(1+1)sin(1.57)";
   printf("%s\n", input_str);
 
   node_t* q_root = NULL;

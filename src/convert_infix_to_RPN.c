@@ -102,16 +102,30 @@ int container_packing(int prev_address, char** str, node_t** s_head,
                       node_t* container_ptr) {
   int error = OK;
 
-  NUMBERS_CHARS;
-  OPERATORS_CHARS;
+  const char numbers_chars[] = "1234567890.";
+  const char operators_chars[] = "+-*/^%()";
   char token_symbol = **str;
 
-  if (strchr(numbers_chars, token_symbol)) {  // another condition!!!
-    error = value_packer(str, container_ptr);
+  if (strchr(numbers_chars, token_symbol)) {
+    if (prev_address == QUEUE && container_ptr->token_type != CLOSE_BRACKET) {
+      error = INCORRECT_INPUT;
+    } else if (prev_address == QUEUE &&
+               container_ptr->token_type == CLOSE_BRACKET) {  // )NUM -> )*NUM
+      char* mult_char_str = "*";
+      operator_packer(prev_address, s_head, &mult_char_str, container_ptr);
+    } else {
+      error = value_packer(str, container_ptr);
+    }
   } else if (strchr(operators_chars, token_symbol)) {
     error = operator_packer(prev_address, s_head, str, container_ptr);
   } else {  // functions case
-    error = function_packer(str, container_ptr);
+
+    if (prev_address == QUEUE || container_ptr->token_type == CLOSE_BRACKET) {
+      char* mult_char_str = "*";
+      operator_packer(prev_address, s_head, &mult_char_str, container_ptr);
+    } else {
+      error = function_packer(str, container_ptr);
+    }
   }
   return error;
 }
@@ -121,8 +135,9 @@ int value_packer(char** str, node_t* container_ptr) {
 
   container_ptr->token_type = NUMBER;
   sscanf(*str, "%lf", &(container_ptr->token_value));
-  NUMBERS_CHARS;
+  const char numbers_chars[] = "1234567890";
   *str += strspn(*str, numbers_chars);
+  if (**str == '.') *str += strspn(++(*str), numbers_chars);
   return OK;
 }
 
@@ -158,7 +173,11 @@ int operator_packer(int prev_address, node_t** s_head, char** str,
               (*s_head)->token_type == POW)) {  // because 1^-2 is correct
     node_t tmp_node = {NULL, U_MINUS, PRIOR_5, 0};
     node_filling(&tmp_node, container_ptr);
-  } else if (symb == '(') {
+  } else if (symb == '(' && prev_address == QUEUE) {  // NUM( -> NUM*(
+    node_t tmp_node = {NULL, MULT, PRIOR_3, 0};
+    node_filling(&tmp_node, container_ptr);
+    *str -= 1;
+  } else if (symb == '(' && prev_address == STACK) {
     node_t tmp_node = {NULL, OPEN_BRACKET, PRIOR_1, 0};
     node_filling(&tmp_node, container_ptr);
   } else {
@@ -172,7 +191,7 @@ int function_packer(char** str, node_t* container_ptr) {
   int error = OK;
 
   FUNCTIONS_NAMES;
-  char* char_after_function_ptr = strpbrk(*str, "1234567890(x");
+  char* char_after_function_ptr = strpbrk(*str, "1234567890.(x");
   char char_after_function = *char_after_function_ptr;
   *char_after_function_ptr = '\0';
 
