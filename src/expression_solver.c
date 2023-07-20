@@ -44,7 +44,7 @@ int expression_solver(node_t* q_root, double variable, double* result) {
     struct_removing(&s_head);
     struct_removing(&q_root);
   } else {
-    *result = s_head->token_value; 
+    *result = s_head->token_value;
   }
   return error;
 }
@@ -99,4 +99,6 @@ double mod_calc(double value_1, double value_2) {
   return (double)((int)value_1 * (int)value_2);
 }
 
-double pow_calc(double value_1, double value_2) { return pow_calc(value_1, value_2); }
+double pow_calc(double value_1, double value_2) {
+  return pow(value_1, value_2);
+}

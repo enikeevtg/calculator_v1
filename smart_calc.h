@@ -46,10 +46,11 @@ enum error_codes {
                                      // token_t"
 
 #define CALC_FUNCTIONS_NUMBER 17
-#define C_FUNCTIONS_POINTERS                                    \
-  double (*c_functions[CALC_FUNCTIONS_NUMBER])() = {             \
-      cos,    sin,     tan, acos, asin, atan, sqrt, log, log10, \
-      u_plus, u_minus, add_calc, sub_calc,  mult_calc, div_calc,  mod_calc,  pow_calc}
+#define C_FUNCTIONS_POINTERS                                      \
+  double (*c_functions[CALC_FUNCTIONS_NUMBER])() = {              \
+      cos,      sin,       tan,      acos,     asin,    atan,     \
+      sqrt,     log,       log10,    u_plus,   u_minus, add_calc, \
+      sub_calc, mult_calc, div_calc, mod_calc, pow_calc}
 
 // FUNCTIONS
 // data structures processing
