@@ -56,6 +56,7 @@ int convert_infix_to_RPN(const char* str, node_t** q_head_ptr) {
   if (error) {
     log_info("ERROR %d", error);
     struct_removing(&s_head);
+    struct_removing(&q_root);
   }
   *q_head_ptr = q_root;
   return error;

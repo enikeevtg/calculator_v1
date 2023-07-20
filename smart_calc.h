@@ -45,9 +45,11 @@ enum error_codes {
                                      // "typedef enum token_type {...}
                                      // token_t"
 
-#define UNARY_FUNCTIONS_CALLING                                  \
-  int (*unary_functions[FUNCTIONS_NUMBER])(double value) = { \
-      cos, sin, tan, acos, asin, atan, sqrt, log, log10};
+#define CALC_FUNCTIONS_NUMBER 17
+#define C_FUNCTIONS_POINTERS                                    \
+  double (*c_functions[CALC_FUNCTIONS_NUMBER])() = {             \
+      cos,    sin,     tan, acos, asin, atan, sqrt, log, log10, \
+      u_plus, u_minus, add_calc, sub_calc,  mult_calc, div_calc,  mod_calc,  pow_calc}
 
 // FUNCTIONS
 // data structures processing
@@ -63,12 +65,6 @@ int node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 int convert_infix_to_RPN(const char* str, node_t** q_head);
 int split_string_to_tokens(const char* str, char** tokens);
 int expression_solver(node_t* q_root, double variable, double* result);
-int unary_solver(node_t** s_head, token_t function_id);
-
-// math functions
-int cos_solver(node_t** s_head);
-int sin_solver(node_t** s_head);
-int tan_solver(node_t** s_head);
-int acos_solver(node_t** s_head);
+int numerical_calculation(node_t** s_head, token_t function_id);
 
 #endif  // SMARTCALC_SMART_CALC_H_
