@@ -51,7 +51,6 @@ enum error_codes {
       "STACK_OVERFLOW",                                                 \
       "QUEUE_OVERFLOW"}
 
-#define TOKEN_CHARS const char token_chars[] = "1234567890.+-*/^%()cstal"
 #define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
 #define FUNCTIONS_FIRST_LETTERS const char functions_first_letters[] = "cstal"
 #define NUMBERS_CHARS const char numbers_chars[] = "1234567890."
@@ -82,8 +81,8 @@ int node_from_queue_to_stack(node_t** q_head, node_t** s_head);
 int node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 
 // calculator
-int convert_infix_to_RPN(const char* str, node_t** q_head);
 int split_string_to_tokens(const char* str, char** tokens);
+int convert_infix_to_RPN(const char* str, node_t** q_head);
 int expression_solver(node_t* q_root, double variable, double* result);
 int numerical_calculation(node_t** s_head, token_t function_id);
 

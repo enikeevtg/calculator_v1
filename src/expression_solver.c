@@ -68,18 +68,6 @@ int numerical_calculation(node_t** s_head, token_t function_id) {
     double value_1 = (*s_head)->token_value;
     (*s_head)->token_value = c_functions[function_id](value_1, value_2);
   }
-
-  // if (function_id == COS) {
-  //   error = cos_solver(s_head);
-  // } else if (function_id == SIN) {
-  //   error = sin_solver(s_head);
-  // } else if (function_id == TAN) {
-  //   error = tan_solver(s_head);
-  // } else if (function_id == ACOS) {
-  //   error = acos_solver(s_head);
-
-  // }
-
   return OK;
 }
 

@@ -23,7 +23,9 @@ typedef enum token_type {
   MOD,           // '%' : 16
   POW,           // '^' : 17
   NUMBER,        // double number : 18
-  VAR            // variable 'x' : 19
+  VAR,           // variable 'x' : 19
+  CLOSE_BRACKET,
+  END_OF_EXPRESSION
 } token_t;
 
 typedef enum token_priority {
