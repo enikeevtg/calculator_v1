@@ -57,16 +57,16 @@ int numerical_calculation(node_t** s_head, token_t function_id) {
   if (function_id == LOG && value_2 <= 0) return LOG + 100;
   if (function_id == SQRT && value_2 < 0) return SQRT + 100;
 
-  C_FUNCTIONS_POINTERS;
+  CALC_FUNCTIONS_POINTERS;
   if (function_id < OPEN_BRACKET) {
     // unary functions:
-    (*s_head)->token_value = c_functions[function_id](value_2);
+    (*s_head)->token_value = calc_functions[function_id](value_2);
   } else {
     // binary functions:
     function_id--;  // because OPEN_BRACKET c_function not exist
     node_removing(s_head);
     double value_1 = (*s_head)->token_value;
-    (*s_head)->token_value = c_functions[function_id](value_1, value_2);
+    (*s_head)->token_value = calc_functions[function_id](value_1, value_2);
   }
   return OK;
 }

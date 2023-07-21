@@ -58,16 +58,18 @@ int operator_token(char* dest, char** operator) {
 
 int function_token(char* dest, char** function) {
   int error_code = OK;
-  FUNCTIONS_NAMES;
+  MATH_FUNCTIONS_NAMES;
   char* char_after_function_ptr = strpbrk(*function, "(1234567890.");
   char char_after_function = *char_after_function_ptr;
   *char_after_function_ptr = '\0';
   int i = 0;
-  while (i < FUNCTIONS_NUMBER && strcmp(*function, functions_names[i])) i++;
-  if (i == FUNCTIONS_NUMBER) {
+  while (i < CALC_FUNCTIONS_NUMBER &&
+         strcmp(*function, math_functions_names[i]))
+    i++;
+  if (i == CALC_FUNCTIONS_NUMBER) {
     error_code = UNDEFINED_TOKEN;
   } else {
-    strcat(dest, functions_names[i]);
+    strcat(dest, math_functions_names[i]);
     *char_after_function_ptr = char_after_function;
     *function = char_after_function_ptr;
   }

@@ -54,21 +54,24 @@ enum error_codes {
 // #define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
 #define FUNCTIONS_FIRST_LETTERS const char functions_first_letters[] = "cstal"
 // #define NUMBERS_CHARS const char numbers_chars[] = "1234567890."
-#define FUNCTIONS_NUMBER 9
-#define FUNCTIONS_NAMES_MAX_LENGTH 5
-#define FUNCTIONS_NAMES                                                        \
-  const char functions_names[FUNCTIONS_NUMBER][FUNCTIONS_NAMES_MAX_LENGTH] = { \
-      "cos",  "sin",  "tan", "acos", "asin",                                   \
-      "atan", "sqrt", "ln",  "log"}  // sequence is the same that in
-                                     // "typedef enum token_type {...}
-                                     // token_t"
+#define MATH_FUNCTIONS_NUMBER 9
+#define MATH_FUNCTIONS_NAMES_LENGTH 5
+#define MATH_FUNCTIONS_NAMES                                   \
+  const char math_functions_names                              \
+      [MATH_FUNCTIONS_NUMBER][MATH_FUNCTIONS_NAMES_LENGTH] = { \
+          "cos",  "sin",  "tan", "acos", "asin",               \
+          "atan", "sqrt", "ln",  "log"}  // sequence is the same that in
+                                         // "typedef enum token_type {...}
+                                         // token_t"
 
 #define CALC_FUNCTIONS_NUMBER 17
-#define C_FUNCTIONS_POINTERS                                      \
-  double (*c_functions[CALC_FUNCTIONS_NUMBER])() = {              \
+#define CALC_FUNCTIONS_POINTERS                                   \
+  double (*calc_functions[CALC_FUNCTIONS_NUMBER])() = {           \
       cos,      sin,       tan,      acos,     asin,    atan,     \
       sqrt,     log,       log10,    u_plus,   u_minus, add_calc, \
       sub_calc, mult_calc, div_calc, mod_calc, pow_calc}
+// sequence is the same that in "typedef enum token_type {...} token_t", but
+// without OPEN_BRACKET
 
 // FUNCTIONS
 // data structures processing

@@ -190,15 +190,16 @@ int operator_packer(int prev_address, node_t** s_head, char** str,
 int function_packer(char** str, node_t* container_ptr) {
   int error = OK;
 
-  FUNCTIONS_NAMES;
+  MATH_FUNCTIONS_NAMES;
   char* char_after_function_ptr = strpbrk(*str, "1234567890.(x");
   char char_after_function = *char_after_function_ptr;
   *char_after_function_ptr = '\0';
 
   int func_id = 0;
-  while (func_id < FUNCTIONS_NUMBER && strcmp(*str, functions_names[func_id]))
+  while (func_id < MATH_FUNCTIONS_NUMBER &&
+         strcmp(*str, math_functions_names[func_id]))
     func_id++;
-  if (func_id == FUNCTIONS_NUMBER) {
+  if (func_id == CALC_FUNCTIONS_NUMBER) {
     error = UNDEFINED_TOKEN;
   } else {
     container_ptr->token_type = func_id;
