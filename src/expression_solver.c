@@ -29,20 +29,20 @@ int expression_solver(node_t* q_root, double variable, double* result) {
   while (!error && q_root) {
     token_type = q_root->token_type;
     if (token_type == NUMBER) {
-      error = node_from_queue_to_stack(&q_root, &s_head);
+      error = move_node_from_queue_to_stack(&q_root, &s_head);
     } else if (token_type == VAR) {
       q_root->token_value = variable;
-      error = node_from_queue_to_stack(&q_root, &s_head);
+      error = move_node_from_queue_to_stack(&q_root, &s_head);
     } else {
       error = numerical_calculation(&s_head, q_root->token_type);
-      node_removing(&q_root);
+      remove_head_node(&q_root);
     }
     log_info("#%d: %lf", i++, s_head->token_value);
   }
   if (error) {
     log_info("ERROR %d", error);
-    struct_removing(&s_head);
-    struct_removing(&q_root);
+    remove_struct(&s_head);
+    remove_struct(&q_root);
   } else {
     *result = s_head->token_value;
   }
@@ -64,7 +64,7 @@ int numerical_calculation(node_t** s_head, token_t function_id) {
   } else {
     // binary functions:
     function_id--;  // because OPEN_BRACKET c_function not exist
-    node_removing(s_head);
+    remove_head_node(s_head);
     double value_1 = (*s_head)->token_value;
     (*s_head)->token_value = calc_functions[function_id](value_1, value_2);
   }

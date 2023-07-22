@@ -7,7 +7,7 @@
 
 /// @brief node removing from memory
 /// @param head structure head pointer
-void node_removing(node_t** head) {
+void remove_head_node(node_t** head) {
   if (head && *head) {
     // printf("stack node %p removing\n", *head);
     node_t* tmp = (*head)->next_node_ptr;

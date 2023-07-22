@@ -55,8 +55,8 @@ int convert_infix_to_RPN(const char* str, node_t** q_head_ptr) {
 
   if (error != OK) {
     log_info("ERROR %d", error);
-    struct_removing(&s_head);
-    struct_removing(&q_root);
+    remove_struct(&s_head);
+    remove_struct(&q_root);
   }
   *q_head_ptr = q_root;
   return error;
@@ -70,9 +70,9 @@ int close_bracket_processing(int prev_address, node_t** s_head,
 
   int error = OK;
   while (*s_head && (*s_head)->token_type != OPEN_BRACKET)
-    node_from_stack_to_queue(s_head, q_head_ptr);
+    move_node_from_stack_to_queue(s_head, q_head_ptr);
   if (*s_head != NULL) {
-    node_removing(s_head);
+    remove_head_node(s_head);
   } else {
     error = UNBALANCED_BRACKETS;
   }
@@ -82,7 +82,7 @@ int close_bracket_processing(int prev_address, node_t** s_head,
 int end_of_expression_processing(node_t** s_head_ptr, node_t** q_head_ptr) {
   int error = OK;
   while (*s_head_ptr != NULL && (*s_head_ptr)->token_type != OPEN_BRACKET)
-    node_from_stack_to_queue(s_head_ptr, q_head_ptr);
+    move_node_from_stack_to_queue(s_head_ptr, q_head_ptr);
   if (*s_head_ptr != NULL) error = UNBALANCED_BRACKETS;
   return error;
 }
@@ -219,7 +219,7 @@ int container_sending(int* address, node_t** s_head, node_t** q_head_ptr,
   } else if (container_ptr->token_type < NUMBER) {  // operators
     while (!error && *s_head != NULL &&
            container_ptr->token_priority <= (*s_head)->token_priority) {
-      error = node_from_stack_to_queue(s_head, q_head_ptr);
+      error = move_node_from_stack_to_queue(s_head, q_head_ptr);
     }
     if (!error) error = push(*address, s_head, container_ptr);
   } else {

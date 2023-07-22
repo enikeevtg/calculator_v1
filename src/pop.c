@@ -14,7 +14,7 @@ int pop(node_t** s_head, node_t* node) {
 
   // node->next_node_ptr = (*s_head)->next_node_ptr;
   node_filling(*s_head, node);
-  node_removing(s_head);
+  remove_head_node(s_head);
   // free(*s_head);
   // *s_head = node->next_node_ptr;
   return OK;

@@ -78,10 +78,10 @@ enum error_codes {
 int push(int address, node_t** head, node_t* data);
 int pop(node_t** s_head, node_t* node);
 void node_filling(node_t* src, node_t* dest);
-void node_removing(node_t** head);
-void struct_removing(node_t** head);
-int node_from_queue_to_stack(node_t** q_head, node_t** s_head);
-int node_from_stack_to_queue(node_t** s_head, node_t** q_head);
+void remove_head_node(node_t** head);
+void remove_struct(node_t** head);
+int move_node_from_queue_to_stack(node_t** q_head, node_t** s_head);
+int move_node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 
 // calculator
 int split_string_to_tokens(const char* str, char** tokens);
