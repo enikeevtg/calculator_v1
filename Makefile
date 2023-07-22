@@ -4,19 +4,25 @@ LEAKS =# leaks -atExit --
 RM = rm -rf
 
 # UTILITIES OPTIONS
+CF = -Wall -Werror -Wextra
 DEBUG = -DDEBUG
 
 # FILENAMES
-SRC_DIR = ./src/
-SRC = $(wildcard $(SRC_DIR)*.c)
+DATA_STRUCT_DIR = ./01_data_structs/
+CALC_DIR = ./02_calculations/
+SRC = $(wildcard $(DATA_STRUCT_DIR)*.c)
+SRC += $(wildcard $(CALC_DIR)*.c)
+TESTS_DIR = ./03_tests/
+
+build: clean
+	$(CC) $(CF) main.c $(SRC) -o calculator
+
+calc:
+	./calculator
 
 tmp: clean
-#	gcc test_structures.c $(SRC_DIR)*.c
-#	gcc test_split_string_to_tokens.c $(SRC_DIR)*.c $(DEBUG)
-#	gcc test_convert_infix_to_RPN.c $(SRC_DIR)*.c $(DEBUG)
-	gcc test_expression_solver.c $(SRC_DIR)*.c $(DEBUG)
-	$(LEAKS) ./a.out
-
+	gcc $(TESTS_DIR)man_test_split_string_to_tokens.c $(SRC)*.c $(DEBUG)
+	./a.out
 
 # SERVICES
 style:

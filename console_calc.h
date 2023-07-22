@@ -29,11 +29,12 @@ enum error_codes {
   EMPTY_QUEUE,
   STACK_UNDERFLOW,  // ! push.c
   STACK_OVERFLOW,   // ! push.c
-  QUEUE_OVERFLOW    // ! push.c
+  QUEUE_OVERFLOW,   // ! push.c
+  INCORRECT_FUNCTION_ARGUMENT
 };
 
-#define ERRORS_MESSAGES_NUMBERS 14
-#define ERRORS_MESSAGE_MAX_SIZE 22
+#define ERRORS_MESSAGES_NUMBERS 15
+#define ERRORS_MESSAGE_MAX_SIZE 28
 #define ERRORS_MESSAGES                                                 \
   char errors_msg[ERRORS_MESSAGES_NUMBERS][ERRORS_MESSAGE_MAX_SIZE] = { \
       "OK",                                                             \
@@ -49,7 +50,8 @@ enum error_codes {
       "EMPTY_QUEUE",                                                    \
       "STACK_UNDERFLOW",                                                \
       "STACK_OVERFLOW",                                                 \
-      "QUEUE_OVERFLOW"}
+      "QUEUE_OVERFLOW",                                                 \
+      "INCORRECT_FUNCTION_ARGUMENT"}
 
 // #define OPERATORS_CHARS const char operators_chars[] = "+-*/^%()"
 #define FUNCTIONS_FIRST_LETTERS const char functions_first_letters[] = "cstal"

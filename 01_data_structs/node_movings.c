@@ -3,7 +3,7 @@
  * enikeeev.tg@gmail.com
  */
 
-#include "../smart_calc.h"
+#include "../console_calc.h"
 
 int drag_and_drop(int address, node_t** src_head, node_t** dest_head);
 

@@ -3,7 +3,7 @@
  * enikeeev.tg@gmail.com
  */
 
-#include "../smart_calc.h"
+#include "../console_calc.h"
 
 /// @brief filling dest node by src node data
 /// @version v.1

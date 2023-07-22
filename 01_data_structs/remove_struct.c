@@ -3,7 +3,7 @@
  * enikeeev.tg@gmail.com
  */
 
-#include "../smart_calc.h"
+#include "../console_calc.h"
 
 /// @brief data struct removing from memory
 /// @param head stack head (or queue root) pointer

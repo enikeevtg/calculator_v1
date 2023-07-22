@@ -3,7 +3,7 @@
  * enikeeev.tg@gmail.com
  */
 
-#include "../smart_calc.h"
+#include "../console_calc.h"
 
 double u_plus(double value_2);
 double u_minus(double value_2);
@@ -25,7 +25,6 @@ int expression_solver(node_t* q_root, double variable, double* result) {
   node_t* s_head = NULL;
   token_t token_type = 0;
 
-  int i = 0;
   while (!error && q_root) {
     token_type = q_root->token_type;
     if (token_type == NUMBER) {
@@ -37,10 +36,8 @@ int expression_solver(node_t* q_root, double variable, double* result) {
       error = numerical_calculation(&s_head, q_root->token_type);
       remove_head_node(&q_root);
     }
-    log_info("#%d: %lf", i++, s_head->token_value);
   }
   if (error) {
-    log_info("ERROR %d", error);
     remove_struct(&s_head);
     remove_struct(&q_root);
   } else {
@@ -51,11 +48,13 @@ int expression_solver(node_t* q_root, double variable, double* result) {
 
 int numerical_calculation(node_t** s_head, token_t function_id) {
   double value_2 = (*s_head)->token_value;
-  if (function_id == ACOS && fabs(value_2) > 1) return ACOS + 100;
-  if (function_id == ASIN && fabs(value_2) > 1) return ASIN + 100;
-  if (function_id == LN && value_2 <= 0) return LN + 100;
-  if (function_id == LOG && value_2 <= 0) return LOG + 100;
-  if (function_id == SQRT && value_2 < 0) return SQRT + 100;
+  if (function_id == ACOS && fabs(value_2) > 1)
+    return INCORRECT_FUNCTION_ARGUMENT;
+  if (function_id == ASIN && fabs(value_2) > 1)
+    return INCORRECT_FUNCTION_ARGUMENT;
+  if (function_id == LN && value_2 <= 0) return INCORRECT_FUNCTION_ARGUMENT;
+  if (function_id == LOG && value_2 <= 0) return INCORRECT_FUNCTION_ARGUMENT;
+  if (function_id == SQRT && value_2 < 0) return INCORRECT_FUNCTION_ARGUMENT;
 
   CALC_FUNCTIONS_POINTERS;
   if (function_id < OPEN_BRACKET) {

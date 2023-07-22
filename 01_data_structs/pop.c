@@ -3,7 +3,7 @@
  * enikeeev.tg@gmail.com
  */
 
-#include "../smart_calc.h"
+#include "../console_calc.h"
 
 /// @brief the data at the top of the stack removing and returning
 /// @param s_head pointer to s_head node pointer of data structure
