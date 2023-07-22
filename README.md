@@ -1,8 +1,10 @@
 # console calculator
 
 It is the first step to smart_calc project with UI.
+
 Dijkstra's algorithm was used for converting infix expression to Reverse Polish notation.
-Stack and Queue structures were uses in project.
+
+Stack and Queue structures were used in project.
 
 Usage:
 
