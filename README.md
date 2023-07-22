@@ -6,6 +6,18 @@ Dijkstra's algorithm was used for converting infix expression to Reverse Polish 
 
 Stack and Queue structures were used in project.
 
+Calculator supports basic math operations (+-*/%^) and math functions:
+
++ cos
++ sin
++ tan
++ acos
++ asin
++ atan
++ sqrt
++ ln
++ log
+
 Usage:
 
 + executable file building:
@@ -19,18 +31,6 @@ Usage:
   or
 
       $ ./calculator
-
-Calculator supports basic math operations (+-*/%^) and math functions:
-
-+ cos
-+ sin
-+ tan
-+ acos
-+ asin
-+ atan
-+ sqrt
-+ ln
-+ log
 
 Examples:
 
@@ -47,5 +47,5 @@ Examples:
     12.109770
 
     $ make calc
-    habracadabra
+    habrakadabra
     error: UNDEFINED_TOKEN
