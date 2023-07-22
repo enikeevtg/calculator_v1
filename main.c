@@ -2,11 +2,12 @@
 
 #include "console_calc.h"
 
-#define STR_MAX_LEN 1024
+#define STR_MAX_LEN 256
 
 int main() {
   char str[STR_MAX_LEN] = {0};
-  gets(str);
+  fgets(str, STR_MAX_LEN, stdin);
+  str[strlen(str) - 1] = '\0';
 
   int error = OK;
   node_t* q_root = NULL;
