@@ -1,6 +1,6 @@
 # UTILITIES
 CC = gcc
-LEAKS =# leaks -atExit --
+LEAKS = leaks -atExit -- #
 RM = rm -rf
 
 # UTILITIES OPTIONS
@@ -19,11 +19,11 @@ build: clean
 	$(CC) $(CF) main.c $(SRC) -o calculator
 
 calc:
-	./calculator
+	$(LEAKS)./calculator
 
 tmp: clean
 	$(CC) $(ATTEMPT_DIR)*.c $(SRC) $(DEBUG)
-	./a.out
+	$(LEAKS)./a.out
 
 # SERVICES
 style:

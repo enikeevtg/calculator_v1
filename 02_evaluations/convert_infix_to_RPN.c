@@ -178,39 +178,39 @@ int operator_packer(int prev_address, node_t** s_phead, char** str,
   char symb = **str;
   if (symb == '+' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, PLUS, PRIOR_2, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '-' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, MINUS, PRIOR_2, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '*' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, MULT, PRIOR_3, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '/' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, DIV, PRIOR_3, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '%' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, MOD, PRIOR_3, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '^' && prev_address == QUEUE) {
     node_t tmp_node = {NULL, POW, PRIOR_4, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '+' && prev_address == STACK &&
              (*s_phead == NULL || (*s_phead)->token_type == OPEN_BRACKET ||
               (*s_phead)->token_type == POW)) {  // because 1^-2 is correct
     node_t tmp_node = {NULL, U_PLUS, PRIOR_5, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '-' && prev_address == STACK &&
              (*s_phead == NULL || (*s_phead)->token_type == OPEN_BRACKET ||
               (*s_phead)->token_type == POW)) {  // because 1^-2 is correct
     node_t tmp_node = {NULL, U_MINUS, PRIOR_5, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else if (symb == '(' && prev_address == QUEUE) {  // NUM( -> NUM*(
     node_t tmp_node = {NULL, MULT, PRIOR_3, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
     *str -= 1;
   } else if (symb == '(' && prev_address == STACK) {
     node_t tmp_node = {NULL, OPEN_BRACKET, PRIOR_1, 0};
-    node_filling(&tmp_node, pcontainer);
+    fill_node(&tmp_node, pcontainer);
   } else {
     error = INCORRECT_INPUT;
   }
@@ -230,7 +230,11 @@ int function_packer(char** str, node_t* pcontainer) {
     error = INCORRECT_INPUT;
 
   MATH_FUNCTIONS_NAMES;
-  if (bracket != NULL) *bracket = '\0';
+  char after_function_char = '\0';
+  if (after_function_char_ptr != NULL) {
+    after_function_char = *after_function_char_ptr;
+    *after_function_char_ptr = '\0';
+  }
   int func_id = 0;
   while (func_id < MATH_FUNCTIONS_NUMBER &&
          strcmp(*str, math_functions_names[func_id]))
@@ -240,8 +244,9 @@ int function_packer(char** str, node_t* pcontainer) {
   } else {
     pcontainer->token_type = func_id;
     pcontainer->token_priority = PRIOR_5;
-    if (bracket != NULL) *bracket = '(';
-    *str = bracket;
+    if (after_function_char_ptr != NULL)
+      *after_function_char_ptr = after_function_char;
+    *str = after_function_char_ptr;
   }
   return error;
 }

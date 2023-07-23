@@ -42,6 +42,7 @@ int evaluate_expression(node_t* q_root, double variable, double* result) {
     remove_struct(&q_root);
   } else {
     *result = s_head->token_value;
+    remove_struct(&s_head);
   }
   return error;
 }

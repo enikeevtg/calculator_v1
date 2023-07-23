@@ -18,7 +18,7 @@ int split_string_to_tokens(const char* str, char** tokens) {
 
   const char numbers_chars[] = "1234567890.";
   const char operators_chars[] = "+-*/^%()";
-  FUNCTIONS_FIRST_LETTERS;
+  const char functions_first_letters[] = "cstal";
 
   char* ptr = (char*)str;
 
@@ -58,20 +58,28 @@ int operator_token(char* dest, char** operator) {
 
 int function_token(char* dest, char** function) {
   int error_code = OK;
+  char* bracket = strchr(*function, '(');
+  char* after_function_char_ptr = strpbrk(*function, "(1234567890.+-*/^%");
+  if (bracket == NULL || bracket > after_function_char_ptr)
+    error_code = INCORRECT_INPUT;
+
   MATH_FUNCTIONS_NAMES;
-  char* char_after_function_ptr = strpbrk(*function, "(1234567890.");
-  char char_after_function = *char_after_function_ptr;
-  *char_after_function_ptr = '\0';
+  char after_function_char = '\0';
+  if (after_function_char_ptr != NULL) {
+    after_function_char = *after_function_char_ptr;
+    *after_function_char_ptr = '\0';
+  }
   int i = 0;
-  while (i < CALC_FUNCTIONS_NUMBER &&
+  while (i < MATH_FUNCTIONS_NUMBER &&
          strcmp(*function, math_functions_names[i]))
     i++;
-  if (i == CALC_FUNCTIONS_NUMBER) {
+  if (i == MATH_FUNCTIONS_NUMBER) {
     error_code = UNDEFINED_TOKEN;
   } else {
     strcat(dest, math_functions_names[i]);
-    *char_after_function_ptr = char_after_function;
-    *function = char_after_function_ptr;
+    if (after_function_char_ptr != NULL)
+      *after_function_char_ptr = after_function_char;
+    *function = after_function_char_ptr;
   }
   return error_code;
 }

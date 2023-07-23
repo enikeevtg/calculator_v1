@@ -9,7 +9,7 @@
 /// @version v.1
 /// @param dest
 /// @param src
-void node_filling(node_t* src, node_t* dest) {
+void fill_node(node_t* src, node_t* dest) {
   dest->token_type = src->token_type;
   dest->token_priority = src->token_priority;
   dest->token_value = src->token_value;

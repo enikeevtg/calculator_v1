@@ -6,35 +6,35 @@
 #include "../console_calc.h"
 
 /// @brief the data adding to stack new node
-/// @param stack_head pointer to head node pointer of stack
-/// @param data data for new node of stack
+/// @param s_phead pointer to head node pointer of stack
+/// @param pdata data for new node of stack
 /// @return error code
-int stack_push(node_t** stack_head, node_t* data) {
+int stack_push(node_t** s_phead, node_t* pdata) {
   int error = OK;
   node_t* new_node_ptr = (node_t*)calloc(1, sizeof(node_t));
   if (new_node_ptr == NULL) {
     error = STACK_OVERFLOW;
   } else {
-    new_node_ptr->next_node_ptr = *stack_head;
-    node_filling(new_node_ptr, data);
-    *stack_head = new_node_ptr;
+    new_node_ptr->next_node_ptr = *s_phead;
+    fill_node(pdata, new_node_ptr);
+    *s_phead = new_node_ptr;
   }
   return error;
 }
 
 /// @brief the data adding to queue new node
-/// @param stack_head pointer to head node pointer of stack
-/// @param data data for new node of stack
+/// @param q_phead pointer to head node pointer of queue
+/// @param pdata data for new node of stack
 /// @return error code
-int queue_push(node_t** queue_head, node_t* data) {
+int queue_push(node_t** q_phead, node_t* pdata) {
   int error = OK;
   node_t* new_node_ptr = (node_t*)calloc(1, sizeof(node_t));
   if (new_node_ptr == NULL) {
     error = QUEUE_OVERFLOW;
   } else {
-    (*queue_head)->next_node_ptr = new_node_ptr;
-    node_filling(new_node_ptr, data);
-    *queue_head = new_node_ptr;
+    (*q_phead)->next_node_ptr = new_node_ptr;
+    fill_node(pdata, new_node_ptr);
+    *q_phead = new_node_ptr;
   }
   return error;
 }

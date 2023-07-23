@@ -77,13 +77,13 @@ enum error_codes {
 
 // FUNCTIONS
 // data structures processing
-int push(int address, node_t** head, node_t* data);
-int pop(node_t** s_head, node_t* node);
-void node_filling(node_t* src, node_t* dest);
-void remove_head_node(node_t** head);
-void remove_struct(node_t** head);
-int move_node_from_queue_to_stack(node_t** q_head, node_t** s_head);
-int move_node_from_stack_to_queue(node_t** s_head, node_t** q_head);
+int push(int address, node_t** phead, node_t* pdata);
+int pop(node_t** s_phead, node_t* pnode);
+void fill_node(node_t* src, node_t* dest);
+void remove_head_node(node_t** phead);
+void remove_struct(node_t** phead);
+int move_node_from_queue_to_stack(node_t** q_phead, node_t** s_phead);
+int move_node_from_stack_to_queue(node_t** s_phead, node_t** q_phead);
 
 // calculator
 int split_string_to_tokens(const char* str, char** tokens);

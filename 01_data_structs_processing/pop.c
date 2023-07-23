@@ -6,16 +6,16 @@
 #include "../console_calc.h"
 
 /// @brief the data at the top of the stack removing and returning
-/// @param s_head pointer to s_head node pointer of data structure
+/// @param s_phead pointer to s_head node pointer of data structure
 /// @param node pointer to node_t
 /// @return error code
-int pop(node_t** s_head, node_t* node) {
-  if (*s_head == NULL) return DATA_STRUCT_UNDERFLOW;
+int pop(node_t** s_phead, node_t* pnode) {
+  if (*s_phead == NULL) return DATA_STRUCT_UNDERFLOW;
 
-  // node->next_node_ptr = (*s_head)->next_node_ptr;
-  node_filling(*s_head, node);
-  remove_head_node(s_head);
-  // free(*s_head);
-  // *s_head = node->next_node_ptr;
+  // node->next_node_ptr = (*s_phead)->next_node_ptr;
+  fill_node(*s_phead, pnode);
+  remove_head_node(s_phead);
+  // free(*s_phead);
+  // *s_phead = node->next_node_ptr;
   return OK;
 }
