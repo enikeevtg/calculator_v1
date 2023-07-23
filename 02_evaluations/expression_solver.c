@@ -19,7 +19,7 @@ double pow_calc(double value_1, double value_2);
 /// @param variable variable value_2
 /// @param result result of expression solving
 /// @return error code (token_type with invalid argument + 100)
-int expression_solver(node_t* q_root, double variable, double* result) {
+int evaluate_expression(node_t* q_root, double variable, double* result) {
   if (q_root == NULL) return EMPTY_QUEUE;
   int error = OK;
   node_t* s_head = NULL;

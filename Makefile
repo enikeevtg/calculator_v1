@@ -8,10 +8,11 @@ CF = -Wall -Werror -Wextra
 DEBUG = -DDEBUG
 
 # FILENAMES
-DATA_STRUCT_DIR = ./01_data_structs/
-CALC_DIR = ./02_calculations/
+ATTEMPT_DIR = ./00_attempt_at_writing/
+DATA_STRUCT_DIR = ./01_data_structs_processing/
+EVAL_DIR = ./02_evaluations/
 SRC = $(wildcard $(DATA_STRUCT_DIR)*.c)
-SRC += $(wildcard $(CALC_DIR)*.c)
+SRC += $(wildcard $(EVAL_DIR)*.c)
 TESTS_DIR = ./03_tests/
 
 build: clean
@@ -21,7 +22,7 @@ calc:
 	./calculator
 
 tmp: clean
-	gcc $(TESTS_DIR)man_test_split_string_to_tokens.c $(SRC)*.c $(DEBUG)
+	$(CC) $(ATTEMPT_DIR)*.c $(SRC) $(DEBUG)
 	./a.out
 
 # SERVICES

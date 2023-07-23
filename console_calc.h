@@ -88,7 +88,7 @@ int move_node_from_stack_to_queue(node_t** s_head, node_t** q_head);
 // calculator
 int split_string_to_tokens(const char* str, char** tokens);
 int convert_infix_to_RPN(const char* str, node_t** q_head);
-int expression_solver(node_t* q_root, double variable, double* result);
-int numerical_calculation(node_t** s_head, token_t function_id);
+int evaluate_expression(node_t* q_root, double variable, double* result);
+int numerical_calculation(node_t** s_phead, token_t function_id);
 
 #endif  // SMARTCALC_SMART_CALC_H_

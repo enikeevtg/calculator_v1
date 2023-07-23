@@ -8,15 +8,15 @@ Stack and Queue structures were used in project.
 
 Calculator supports basic math operations (+-*/%^) and math functions:
 
-+ cos
-+ sin
-+ tan
-+ acos
-+ asin
-+ atan
-+ sqrt
-+ ln
-+ log
++ cos()
++ sin()
++ tan()
++ acos()
++ asin()
++ atan()
++ sqrt()
++ ln()
++ log()
 
 Usage:
 
@@ -43,7 +43,7 @@ Examples:
     0.000093
     
     $ make calc
-    (1 + 2) * 3 / sin1 + cos(2.1 / 14) % 8 + sqrt(2)
+    (1 + 2) * 3 / sin(1) + cos(2.1 / 14) % 8 + sqrt(2)
     12.109770
 
     $ make calc

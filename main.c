@@ -16,7 +16,7 @@ int main() {
   double result = 0;
 
   error = convert_infix_to_RPN(str, &q_root);
-  if (error == OK) error = expression_solver(q_root, var_value, &result);
+  if (error == OK) error = evaluate_expression(q_root, var_value, &result);
 
   if (error == OK)
     printf("%lf", result);
