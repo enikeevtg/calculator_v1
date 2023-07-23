@@ -14,9 +14,10 @@ EVAL_DIR = ./02_evaluations/
 SRC = $(wildcard $(DATA_STRUCT_DIR)*.c)
 SRC += $(wildcard $(EVAL_DIR)*.c)
 TESTS_DIR = ./03_tests/
+EXE = calculator
 
 build: clean
-	$(CC) $(CF) main.c $(SRC) -o calculator
+	$(CC) $(CF) main.c $(SRC) -o $(EXE)
 
 calc:
 	$(LEAKS)./calculator
@@ -33,4 +34,5 @@ gost:
 	clang-format --style=google -i *.h *.c $(SRC)
 
 clean:
+	$(RM) $(EXE)
 	$(RM) a.out

@@ -8,7 +8,7 @@
 int close_bracket_processing(int prev_address, node_t** s_phead,
                              node_t** q_phead);
 int end_of_expression_processing(node_t** s_phead, node_t** q_phead);
-int token_processing(int* address, char** current_str, node_t** s_phead,
+int token_processing(int* paddress, char** current_str, node_t** s_phead,
                      node_t** q_phead, node_t* pcontainer);
 int container_packing(int prev_address, char** str, node_t** s_phead,
                       node_t* pcontainer);
@@ -17,17 +17,19 @@ int operator_packer(int prev_address, node_t** s_phead, char** str,
                     node_t* pcontainer);
 int function_packer(char** str, node_t* pcontainer);
 void create_mult(int prev_address, node_t** s_phead, node_t* pcontainer);
-int container_sending(int* address, node_t** s_phead, node_t** q_phead,
+int container_sending(int* paddress, node_t** s_phead, node_t** q_phead,
                       node_t* pcontainer);
 
 /// @brief converting from infix notation to reverse Polish notation
 /// @param str
-/// @param q_phead queue head pointer pointer.
-/// Initial it is pointing to queue root.
+/// @param q_proot queue root pointer pointer.
 /// When function is doing it is redefined to queue head,
-/// but in the end of function it is redefined to first queue node pointer
+/// but in the end of function it is redefined to queue node root pointer
 /// @return error code
-int convert_infix_to_RPN(const char* str, node_t** q_phead) {
+int convert_infix_to_RPN(const char* str, node_t** q_proot) {
+  if (strlen(str) > MAX_INPUT_STR_LEN) return TOO_LONG_EXPRESSION;
+  if (strlen(str) == 0) return EMPTY_EXPRESSION;
+
   int error = OK;
   char* current_str = (char*)str;
   node_t* s_head = NULL;
@@ -39,26 +41,26 @@ int convert_infix_to_RPN(const char* str, node_t** q_phead) {
   while (!error && !(*current_str == '\0' && s_head == NULL)) {
     if (*current_str == ')') {
       container.token_type = CLOSE_BRACKET;
-      error = close_bracket_processing(address, &s_head, q_phead);
+      error = close_bracket_processing(address, &s_head, q_proot);
       current_str++;
     } else if (*current_str == '\0') {
-      error = end_of_expression_processing(&s_head, q_phead);
+      error = end_of_expression_processing(&s_head, q_proot);
     } else if (*current_str == ' ') {
       current_str++;
     } else if (strchr(token_first_chars, *current_str)) {
-      error = token_processing(&address, &current_str, &s_head, q_phead,
+      error = token_processing(&address, &current_str, &s_head, q_proot,
                                &container);
     } else {
       error = UNDEFINED_TOKEN;
     }
-    if (q_root == NULL) q_root = *q_phead;
+    if (q_root == NULL) q_root = *q_proot;
   }  // while
 
   if (error != OK) {
     remove_struct(&s_head);
     remove_struct(&q_root);
   }
-  *q_phead = q_root;
+  *q_proot = q_root;
   return error;
 }
 
@@ -97,19 +99,19 @@ int end_of_expression_processing(node_t** s_phead, node_t** q_phead) {
 }
 
 /// @brief
-/// @param address_ptr
+/// @param paddress
 /// @param current_str
 /// @param s_phead
 /// @param q_phead
 /// @param pcontainer
 /// @return
-int token_processing(int* address_ptr, char** current_str, node_t** s_phead,
+int token_processing(int* paddress, char** current_str, node_t** s_phead,
                      node_t** q_phead, node_t* pcontainer) {
   int error = OK;
 
-  error = container_packing(*address_ptr, current_str, s_phead, pcontainer);
+  error = container_packing(*paddress, current_str, s_phead, pcontainer);
   if (error == OK) {
-    error = container_sending(address_ptr, s_phead, q_phead, pcontainer);
+    error = container_sending(paddress, s_phead, q_phead, pcontainer);
   }
   return error;
 }
@@ -223,7 +225,7 @@ int operator_packer(int prev_address, node_t** s_phead, char** str,
 int function_packer(char** str, node_t* pcontainer) {
   int error = OK;
   char* bracket = strchr(*str, '(');
-  char* after_function_char_ptr = strpbrk(*str, "(1234567890.+-*/^%");
+  char* after_function_char_ptr = strpbrk(*str, "()1234567890.+-*/^%");
   if (bracket == NULL || bracket > after_function_char_ptr)
     error = INCORRECT_INPUT;
 
@@ -259,15 +261,15 @@ void create_mult(int prev_address, node_t** s_phead, node_t* pcontainer) {
 }
 
 /// @brief
-/// @param address
+/// @param paddress
 /// @param s_phead
 /// @param q_phead
 /// @param pcontainer
 /// @return
-int container_sending(int* address, node_t** s_phead, node_t** q_phead,
+int container_sending(int* paddress, node_t** s_phead, node_t** q_phead,
                       node_t* pcontainer) {
   int error = OK;
-  *address = STACK;
+  *paddress = STACK;
   if (pcontainer->token_type <= OPEN_BRACKET) {  // functions and '('
     error = push(STACK, s_phead, pcontainer);
   } else if (pcontainer->token_type < POW) {  // left-associative operators
@@ -284,7 +286,7 @@ int container_sending(int* address, node_t** s_phead, node_t** q_phead,
     if (!error) error = push(STACK, s_phead, pcontainer);
   } else {  // if NUMBER or VAR
     error = push(QUEUE, q_phead, pcontainer);
-    *address = QUEUE;
+    *paddress = QUEUE;
   }
   return error;
 }
