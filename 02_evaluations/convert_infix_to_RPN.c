@@ -191,7 +191,7 @@ int operator_packer(int prev_address, node_t** s_phead, char** str,
     node_t tmp_node = {NULL, MOD, PRIOR_3, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '^' && prev_address == QUEUE) {
-    node_t tmp_node = {NULL, POW, PRIOR_4, 0};
+    node_t tmp_node = {NULL, POW, PRIOR_6, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '+' && prev_address == STACK &&
              (*s_phead == NULL || (*s_phead)->token_type == OPEN_BRACKET ||
