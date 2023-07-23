@@ -204,8 +204,7 @@ int operator_packer(int prev_address, node_t** s_phead, char** str,
     node_t tmp_node = {NULL, U_MINUS, PRIOR_5, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '(' && prev_address == QUEUE) {  // NUM( -> NUM*(
-    node_t tmp_node = {NULL, MULT, PRIOR_3, 0};
-    fill_node(&tmp_node, pcontainer);
+    create_mult(prev_address, s_phead, pcontainer);
     *str -= 1;
   } else if (symb == '(' && prev_address == STACK) {
     node_t tmp_node = {NULL, OPEN_BRACKET, PRIOR_1, 0};
@@ -270,16 +269,22 @@ int container_sending(int* address, node_t** s_phead, node_t** q_phead,
   int error = OK;
   *address = STACK;
   if (pcontainer->token_type <= OPEN_BRACKET) {  // functions and '('
-    error = push(*address, s_phead, pcontainer);
-  } else if (pcontainer->token_type <= POW) {  // operators
+    error = push(STACK, s_phead, pcontainer);
+  } else if (pcontainer->token_type < POW) {  // left-associative operators
     while (!error && *s_phead != NULL &&
            pcontainer->token_priority <= (*s_phead)->token_priority) {
       error = move_node_from_stack_to_queue(s_phead, q_phead);
     }
-    if (!error) error = push(*address, s_phead, pcontainer);
-  } else {
+    if (!error) error = push(STACK, s_phead, pcontainer);
+  } else if (pcontainer->token_type == POW) {  // right-associative POW
+    while (!error && *s_phead != NULL &&
+           pcontainer->token_priority <= (*s_phead)->token_priority && (*s_phead)->token_type != POW) {
+      error = move_node_from_stack_to_queue(s_phead, q_phead);
+    }
+    if (!error) error = push(STACK, s_phead, pcontainer);
+  } else {  // if NUMBER or VAR
+    error = push(QUEUE, q_phead, pcontainer);
     *address = QUEUE;
-    error = push(*address, q_phead, pcontainer);
   }
   return error;
 }

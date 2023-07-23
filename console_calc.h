@@ -1,5 +1,5 @@
-#ifndef SMARTCALC_SMART_CALC_H_
-#define SMARTCALC_SMART_CALC_H_
+#ifndef CONSOLE_CALC_CALC_H_
+#define CONSOLE_CALC_CALC_H_
 
 #include <math.h>
 #include <stdio.h>
@@ -91,4 +91,4 @@ int convert_infix_to_RPN(const char* str, node_t** q_head);
 int evaluate_expression(node_t* q_root, double variable, double* result);
 int numerical_calculation(node_t** s_phead, token_t function_id);
 
-#endif  // SMARTCALC_SMART_CALC_H_
+#endif  // CONSOLE_CALC_CALC_H_
