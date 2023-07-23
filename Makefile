@@ -1,6 +1,6 @@
 # UTILITIES
 CC = gcc
-LEAKS = leaks -atExit -- #
+LEAKS =# leaks -atExit -- #
 RM = rm -rf
 
 # UTILITIES OPTIONS

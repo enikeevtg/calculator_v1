@@ -24,6 +24,6 @@ int main() {
     ERRORS_MESSAGES;
     printf("error: %s", errors_msg[error]);
   }
-  
+
   return 0;
 }

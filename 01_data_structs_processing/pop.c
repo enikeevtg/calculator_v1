@@ -12,10 +12,7 @@
 int pop(node_t** s_phead, node_t* pnode) {
   if (*s_phead == NULL) return DATA_STRUCT_UNDERFLOW;
 
-  // node->next_node_ptr = (*s_phead)->next_node_ptr;
   fill_node(*s_phead, pnode);
   remove_head_node(s_phead);
-  // free(*s_phead);
-  // *s_phead = node->next_node_ptr;
   return OK;
 }

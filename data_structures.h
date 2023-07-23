@@ -37,7 +37,7 @@ typedef enum token_priority {
 } token_p;
 
 typedef struct node_tag {
-  struct node_tag* next_node_ptr;
+  struct node_tag* pnext;
   token_t token_type;
   token_p token_priority;
   double token_value;

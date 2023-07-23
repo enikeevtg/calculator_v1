@@ -9,7 +9,7 @@
 /// @param phead structure head pointer
 void remove_head_node(node_t** phead) {
   if (phead && *phead) {
-    node_t* tmp = (*phead)->next_node_ptr;
+    node_t* tmp = (*phead)->pnext;
     free(*phead);
     *phead = tmp;
   }

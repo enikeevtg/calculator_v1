@@ -15,7 +15,7 @@ int stack_push(node_t** s_phead, node_t* pdata) {
   if (new_node_ptr == NULL) {
     error = STACK_OVERFLOW;
   } else {
-    new_node_ptr->next_node_ptr = *s_phead;
+    new_node_ptr->pnext = *s_phead;
     fill_node(pdata, new_node_ptr);
     *s_phead = new_node_ptr;
   }
@@ -32,7 +32,7 @@ int queue_push(node_t** q_phead, node_t* pdata) {
   if (new_node_ptr == NULL) {
     error = QUEUE_OVERFLOW;
   } else {
-    (*q_phead)->next_node_ptr = new_node_ptr;
+    (*q_phead)->pnext = new_node_ptr;
     fill_node(pdata, new_node_ptr);
     *q_phead = new_node_ptr;
   }
