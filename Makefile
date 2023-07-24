@@ -66,6 +66,7 @@ gcov: gcov_report
 
 gcov_report: clean
 	@$(CC) $(CF) $(GCOV_FLAGS) $(ASAN) $(TESTS_SRC) $(SRC) -o $(TEST_EXE) $(TEST_FLAGS)
+	@$(LEAKS) $(TEST_EXE)
 	@lcov -t "./gcov" -o report.info --no-external -c -d .
 	@genhtml -o report report.info
 	@gcovr -r . --html-details -o ./report/coverage_report.html
