@@ -193,17 +193,17 @@ int operator_packer(int prev_address, node_t** s_phead, char** str,
     node_t tmp_node = {NULL, MOD, PRIOR_3, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '^' && prev_address == QUEUE) {
-    node_t tmp_node = {NULL, POW, PRIOR_6, 0};
+    node_t tmp_node = {NULL, POW, PRIOR_4, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '+' && prev_address == STACK &&
              (*s_phead == NULL || (*s_phead)->token_type == OPEN_BRACKET ||
               (*s_phead)->token_type == POW)) {  // because 1^-2 is correct
-    node_t tmp_node = {NULL, U_PLUS, PRIOR_5, 0};
+    node_t tmp_node = {NULL, U_PLUS, PRIOR_4, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '-' && prev_address == STACK &&
              (*s_phead == NULL || (*s_phead)->token_type == OPEN_BRACKET ||
               (*s_phead)->token_type == POW)) {  // because 1^-2 is correct
-    node_t tmp_node = {NULL, U_MINUS, PRIOR_5, 0};
+    node_t tmp_node = {NULL, U_MINUS, PRIOR_4, 0};
     fill_node(&tmp_node, pcontainer);
   } else if (symb == '(' && prev_address == QUEUE) {  // NUM( -> NUM*(
     create_mult(prev_address, s_phead, pcontainer);
@@ -243,7 +243,7 @@ int function_packer(char** str, node_t* pcontainer) {
     error = UNDEFINED_TOKEN;
   } else {
     pcontainer->token_type = func_id;
-    pcontainer->token_priority = PRIOR_5;
+    pcontainer->token_priority = PRIOR_4;
     if (after_function_char_ptr != NULL)
       *after_function_char_ptr = after_function_char;
     *str = after_function_char_ptr;
@@ -279,11 +279,7 @@ int container_sending(int* paddress, node_t** s_phead, node_t** q_phead,
     }
     if (!error) error = push(STACK, s_phead, pcontainer);
   } else if (pcontainer->token_type == POW) {  // right-associative POW
-    while (!error && *s_phead != NULL &&
-           pcontainer->token_priority <= (*s_phead)->token_priority && (*s_phead)->token_type != POW) {
-      error = move_node_from_stack_to_queue(s_phead, q_phead);
-    }
-    if (!error) error = push(STACK, s_phead, pcontainer);
+    error = push(STACK, s_phead, pcontainer);
   } else {  // if NUMBER or VAR
     error = push(QUEUE, q_phead, pcontainer);
     *paddress = QUEUE;

@@ -32,9 +32,7 @@ typedef enum token_priority {
   PRIOR_1,
   PRIOR_2,
   PRIOR_3,
-  PRIOR_4,
-  PRIOR_5,
-  PRIOR_6
+  PRIOR_4
 } token_p;
 
 typedef struct node_tag {
