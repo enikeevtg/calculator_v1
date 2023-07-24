@@ -17,8 +17,8 @@ int move_node_from_queue_to_stack(node_t** q_phead, node_t** s_phead) {
 
 /// @brief the data at the top of the one data structure removing and returning
 /// it to another data structure
-/// @param dest_phead pointer to head node pointer of
-/// @param src_phead pointer to head node pointer of
+/// @param dest_phead pointer to head node pointer of dest struct
+/// @param src_phead pointer to head node pointer of src struct
 /// @return error code
 int drag_and_drop(int address, node_t** src_phead, node_t** dest_phead) {
   if (*src_phead == NULL) return DATA_STRUCT_UNDERFLOW;

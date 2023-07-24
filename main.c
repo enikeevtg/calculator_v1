@@ -12,11 +12,10 @@ int main() {
   int error = OK;
   node_t* q_root = NULL;
 
-  double var_value = 0;
   double result = 0;
 
   error = convert_infix_to_RPN(str, &q_root);
-  if (error == OK) error = evaluate_expression(q_root, var_value, &result);
+  if (error == OK) error = evaluate_expression(q_root, &result);
 
   if (error == OK)
     printf("%lf", result);

@@ -7,7 +7,7 @@
 
 /// @brief the data at the top of the stack removing and returning
 /// @param phead pointer to s_head node pointer of data structure
-/// @param node pointer to node_t
+/// @param pnode pointer to node_t
 /// @return error code
 int pop(node_t** phead, node_t* pnode) {
   if (*phead == NULL) return DATA_STRUCT_UNDERFLOW;
