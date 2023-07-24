@@ -4,21 +4,32 @@
  */
 
 #include "../console_calc.h"
+node_t* create_new_node(node_t* pdata, node_t* next);
 
-/// @brief the data adding to stack new node
+/// @brief stack and queue common function for data adding to new node
+/// @version v.2
 /// @param address STACK or QUEUE structure
 /// @param phead head of structure
 /// @param pdata
 /// @return error code
 int push(int address, node_t** phead, node_t* pdata) {
   int error = DATA_STRUCT_OVERFLOW;
-  node_t* new_node_ptr = (node_t*)calloc(1, sizeof(node_t));
-  if (new_node_ptr != NULL) {
-    error = OK;
-    if (address == STACK) new_node_ptr->pnext = *phead;
-    if (address == QUEUE && *phead != NULL) (*phead)->pnext = new_node_ptr;
-    fill_node(pdata, new_node_ptr);
-    *phead = new_node_ptr;
+
+  if (address == STACK || *phead == NULL)
+    *phead = create_new_node(pdata, *phead);
+  if (address == QUEUE && *phead != NULL) {
+    (*phead)->pnext = create_new_node(pdata, NULL);
+    *phead = (*phead)->pnext;
   }
+  if (*phead != NULL) error = OK;
   return error;
+}
+
+node_t* create_new_node(node_t* pdata, node_t* next) {
+  node_t* pnew_node = (node_t*)calloc(1, sizeof(node_t));
+  if (pnew_node) {
+    pnew_node->pnext = next;
+    fill_node(pdata, pnew_node);
+  }
+  return pnew_node;
 }
