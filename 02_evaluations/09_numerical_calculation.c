@@ -42,7 +42,3 @@ double sub_calc(double value_1, double value_2) { return value_1 - value_2; }
 double mult_calc(double value_1, double value_2) { return value_1 * value_2; }
 
 double div_calc(double value_1, double value_2) { return value_1 / value_2; }
-
-double pow_calc(double value_1, double value_2) {
-  return pow(value_1, value_2);
-}
