@@ -40,12 +40,12 @@ TESTS_SRC = $(wildcard $(TESTS_DIR)*.c)
 TEST_EXE = ./tests_run
 EXE = ./calculator
 
-all: build calc
+all: build launch
 
 build: clean
 	$(CC) $(CF) main.c $(SRC) -o $(EXE)
 
-calc:
+launch:
 	$(LEAKS)$(EXE)
 
 # TESTS
