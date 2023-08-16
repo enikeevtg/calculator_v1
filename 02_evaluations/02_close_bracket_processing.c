@@ -16,13 +16,20 @@ int close_bracket_processing(int prev_address, node_t** s_phead,
     return EMPTY_BRACKETS;
   if (prev_address == STACK) return INCORRECT_INPUT;
 
-  int error = OK;
-  while (*s_phead && (*s_phead)->token_type != OPEN_BRACKET)
+  while (*s_phead && (*s_phead)->token_type != OPEN_BRACKET) {
     move_node_from_stack_to_queue(s_phead, q_phead);
-  if (*s_phead != NULL) {
-    remove_head_node(s_phead);
-  } else {
-    error = UNBALANCED_BRACKETS;
   }
+
+  int error = OK;
+  if (*s_phead == NULL) {
+    error = UNBALANCED_BRACKETS;
+  } else {
+    remove_head_node(s_phead);
+    // if function before open bracket
+    if (*s_phead && (*s_phead)->token_type < OPEN_BRACKET) {
+      move_node_from_stack_to_queue(s_phead, q_phead);
+    }
+  }
+
   return error;
 }
