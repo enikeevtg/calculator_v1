@@ -82,8 +82,8 @@ int pop(node_t** phead, node_t* pnode);
 void fill_node(node_t* src, node_t* dest);
 void remove_head_node(node_t** phead);
 void remove_struct(node_t** phead);
-int move_node_from_queue_to_stack(node_t** q_phead, node_t** s_phead);
-int move_node_from_stack_to_queue(node_t** s_phead, node_t** q_phead);
+void move_node_from_queue_to_stack(node_t** q_phead, node_t** s_phead);
+void move_node_from_stack_to_queue(node_t** s_phead, node_t** q_phead);
 
 // converter
 int convert_infix_to_RPN(const char* str, node_t** q_proot);
@@ -111,7 +111,5 @@ double add_calc(double value_1, double value_2);
 double sub_calc(double value_1, double value_2);
 double mult_calc(double value_1, double value_2);
 double div_calc(double value_1, double value_2);
-double mod_calc(double value_1, double value_2);
-double pow_calc(double value_1, double value_2);
 
 #endif  // CONSOLE_CALC_CONSOLE_CALC_H_

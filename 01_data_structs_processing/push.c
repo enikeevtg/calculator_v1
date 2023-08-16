@@ -15,9 +15,9 @@ node_t* create_new_node(node_t* pdata, node_t* next);
 int push(int address, node_t** phead, node_t* pdata) {
   int error = DATA_STRUCT_OVERFLOW;
 
-  if (address == STACK || *phead == NULL)
+  if (address == STACK || *phead == NULL) {
     *phead = create_new_node(pdata, *phead);
-  if (address == QUEUE && *phead != NULL) {
+  } else if (address == QUEUE) {
     (*phead)->pnext = create_new_node(pdata, NULL);
     *phead = (*phead)->pnext;
   }

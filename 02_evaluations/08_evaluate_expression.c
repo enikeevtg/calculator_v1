@@ -14,12 +14,10 @@ int evaluate_expression(node_t* q_root, double* result) {
   if (q_root == NULL) return EMPTY_QUEUE;
   int error = OK;
   node_t* s_head = NULL;
-  token_t token_type = 0;
 
   while (!error && q_root) {
-    token_type = q_root->token_type;
-    if (token_type == NUMBER) {
-      error = move_node_from_queue_to_stack(&q_root, &s_head);
+    if (q_root->token_type == NUMBER) {
+      move_node_from_queue_to_stack(&q_root, &s_head);
     } else {
       error = numerical_calculation(&s_head, q_root->token_type);
       remove_head_node(&q_root);

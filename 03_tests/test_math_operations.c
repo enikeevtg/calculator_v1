@@ -64,41 +64,15 @@ START_TEST(div_test) {
 }
 END_TEST
 
-START_TEST(mod_test) {
-  // Arrange
-  double value_1 = 983.7934988;
-  double value_2 = 123.4224863;
-  // Act
-  double result = mod_calc(value_1, value_2);
-  // Assert
-  ck_assert_double_eq_tol(result, (double)((int)value_1 % (int)value_2),
-                          TOLERANCE);
-}
-END_TEST
-
-START_TEST(pow_test) {
-  // Arrange
-  double value_1 = 4.1239853;
-  double value_2 = 1.9834768;
-  // Act
-  double result = pow_calc(value_1, value_2);
-  // Assert
-  ck_assert_double_eq_tol(result, pow(value_1, value_2), TOLERANCE);
-}
-END_TEST
-
 Suite* test_math_operations(void) {
   Suite* s = suite_create("math operations test suite");
   TCase* math_operations_tc = tcase_create("math operations test case");
-
   tcase_add_test(math_operations_tc, u_plus_test);
   tcase_add_test(math_operations_tc, u_minus_test);
   tcase_add_test(math_operations_tc, add_test);
   tcase_add_test(math_operations_tc, sub_test);
   tcase_add_test(math_operations_tc, mult_test);
   tcase_add_test(math_operations_tc, div_test);
-  tcase_add_test(math_operations_tc, mod_test);
-  tcase_add_test(math_operations_tc, pow_test);
   suite_add_tcase(s, math_operations_tc);
 
   return s;

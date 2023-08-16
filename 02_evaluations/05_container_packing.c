@@ -133,7 +133,7 @@ int function_packer(char** str, node_t* pcontainer) {
   if (func_id == MATH_FUNCTIONS_NUMBER) {
     error = UNDEFINED_TOKEN;
   } else {
-    pcontainer->token_type = func_id;
+    pcontainer->token_type = (token_t)func_id;
     pcontainer->token_priority = PRIOR_4;
     if (after_function_char_ptr != NULL)
       *after_function_char_ptr = after_function_char;
