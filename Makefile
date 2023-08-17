@@ -26,16 +26,16 @@ endif
 GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 
 # FILENAMES
-ATTEMPT_DIR = ./00_attempt_at_writing/
-DATA_STRUCT_DIR = ./01_data_structs_processing/
-EVAL_DIR = ./02_evaluations/
+ATTEMPT_DIR = ./attempt_at_writing/
+
+SRC_DIR = ./src/
+DATA_STRUCT_DIR = $(SRC_DIR)01_data_structs_processing/
+EVAL_DIR = $(SRC_DIR)02_evaluations/
 SRC = $(wildcard $(DATA_STRUCT_DIR)*.c)
 SRC += $(wildcard $(EVAL_DIR)*.c)
-OBJ_DIR = ./06_obj/
-OBJ = $(patsubst $(DATA_STRUCT_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
-OBJ += $(patsubst $(EVAL_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
-MAN_TESTS_DIR = ./04_man_tests/
-TESTS_DIR = ./03_tests/
+
+MAN_TESTS_DIR = ./man_tests/
+TESTS_DIR = ./tests/
 TESTS_SRC = $(wildcard $(TESTS_DIR)*.c)
 TEST_EXE = ./tests_run
 EXE = ./calculator
@@ -43,7 +43,7 @@ EXE = ./calculator
 all: build launch
 
 build: clean
-	$(CC) $(CF) main.c $(SRC) -o $(EXE)
+	$(CC) $(CF) $(SRC_DIR)main.c $(SRC) -o $(EXE)
 
 launch:
 	$(LEAKS)$(EXE)
@@ -55,8 +55,6 @@ man_test: clean
 #	$(CC) $(MAN_TESTS_DIR)test_convert_infix_to_RPN.c $(SRC) $(DEBUG)
 	$(CC) $(MAN_TESTS_DIR)test_evaluate_expression.c $(SRC) $(DEBUG)
 	$(LEAKS)./a.out
-
-objects: makeobjdir $(OBJ)
 
 test: clean
 	@$(CC) $(CF) $(ASAN) $(TESTS_SRC) $(SRC) -o $(TEST_EXE) $(TEST_FLAGS)
@@ -82,7 +80,6 @@ gost:
 
 clean:
 	@$(RM) a.out
-	@$(RM) $(OBJ_DIR)
 	@$(RM) *.gcno *.gcda
 	@$(RM) *.dSYM
 	@$(RM) ./report/

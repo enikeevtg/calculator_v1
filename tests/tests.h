@@ -4,7 +4,7 @@
 #include <check.h>
 #include <stdlib.h>
 
-#include "../console_calc.h"
+#include "../src/console_calc.h"
 
 Suite* test_push(void);
 Suite* test_fill_node(void);
