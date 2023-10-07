@@ -40,6 +40,7 @@ TESTS_SRC = $(wildcard $(TESTS_DIR)*.c)
 TEST_EXE = ./tests_run
 EXE = ./calculator
 
+# BUILD
 all: build launch
 
 build: clean

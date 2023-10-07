@@ -37,24 +37,24 @@ enum error_codes {
 };
 
 #define ERRORS_MESSAGES_NUMBERS 15
-#define ERRORS_MESSAGE_MAX_SIZE 22
+#define ERRORS_MESSAGE_MAX_SIZE 23
 #define ERRORS_MESSAGES                                                 \
   char errors_msg[ERRORS_MESSAGES_NUMBERS][ERRORS_MESSAGE_MAX_SIZE] = { \
-      "OK",                                                             \
-      "TOO_LONG_EXPRESSION",                                            \
-      "EMPTY_EXPRESSION",                                               \
-      "UNDEFINED_TOKEN",                                                \
-      "DATA_STRUCT_UNDERFLOW",                                          \
-      "DATA_STRUCT_OVERFLOW",                                           \
-      "UNBALANCED_BRACKETS",                                            \
-      "EMPTY_BRACKETS",                                                 \
-      "INCORRECT_INPUT",                                                \
-      "EMPTY_QUEUE",                                                    \
-      "ACOS_ARGUMENT_ERROR",                                            \
-      "ASIN_ARGUMENT_ERROR",                                            \
-      "LN_ARGUMENT_ERROR",                                              \
-      "LOG_ARGUMENT_ERROR",                                             \
-      "SQRT_ARGUMENT_ERROR"}
+      "ok",                                                             \
+      "too long expression",                                            \
+      "empty expression",                                               \
+      "undefined token",                                                \
+      "data struct underflow",                                          \
+      "data struct overflow",                                           \
+      "unbalanced brackets",                                            \
+      "empty brackets",                                                 \
+      "incorrect input",                                                \
+      "empty queue",                                                    \
+      "acos: invalid argument",                                         \
+      "asin: invalid argument",                                         \
+      "ln: invalid argument",                                           \
+      "log: invalid argument",                                          \
+      "sqrt: invalid argument"}
 
 #define MATH_FUNCTIONS_NUMBER 9
 #define MATH_FUNCTIONS_NAMES_LENGTH 5

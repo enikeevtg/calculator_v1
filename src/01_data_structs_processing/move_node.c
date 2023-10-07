@@ -8,7 +8,6 @@
 /// @brief
 /// @param s_phead
 /// @param q_phead
-/// @return
 void move_node_from_stack_to_queue(node_t** s_phead, node_t** q_phead) {
   if (*q_phead != NULL) {
     (*q_phead)->pnext = *s_phead;
@@ -23,7 +22,6 @@ void move_node_from_stack_to_queue(node_t** s_phead, node_t** q_phead) {
 /// @brief
 /// @param q_phead
 /// @param s_phead
-/// @return
 void move_node_from_queue_to_stack(node_t** q_proot, node_t** s_phead) {
   node_t* tmp_node = (*q_proot)->pnext;
   (*q_proot)->pnext = *s_phead;
